@@ -1,11 +1,11 @@
 <?php
-// created: 2016-05-31 14:45:48
+// created: 2018-07-05 19:52:56
 $subpanel_layout['list_fields'] = array (
   'name' => 
   array (
     'vname' => 'LBL_NAME',
     'widget_class' => 'SubPanelDetailViewLink',
-    'width' => '45%',
+    'width' => '10%',
     'default' => true,
   ),
   'appointment_status' => 
@@ -31,6 +31,18 @@ $subpanel_layout['list_fields'] = array (
     'width' => '10%',
     'default' => true,
   ),
+  'prospectlists_atc_appointments_1_name' => 
+  array (
+    'type' => 'relate',
+    'link' => true,
+    'vname' => 'LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE',
+    'id' => 'PROSPECTLISTS_ATC_APPOINTMENTS_1PROSPECTLISTS_IDA',
+    'width' => '10%',
+    'default' => true,
+    'widget_class' => 'SubPanelDetailViewLink',
+    'target_module' => 'ProspectLists',
+    'target_record_key' => 'prospectlists_atc_appointments_1prospectlists_ida',
+  ),
   'accounts_atc_appointments_1_name' => 
   array (
     'type' => 'relate',
@@ -46,23 +58,7 @@ $subpanel_layout['list_fields'] = array (
   'date_modified' => 
   array (
     'vname' => 'LBL_DATE_MODIFIED',
-    'width' => '45%',
-    'default' => true,
-  ),
-  'edit_button' => 
-  array (
-    'vname' => 'LBL_EDIT_BUTTON',
-    'widget_class' => 'SubPanelEditButton',
-    'module' => 'ATC_Appointments',
-    'width' => '4%',
-    'default' => true,
-  ),
-  'remove_button' => 
-  array (
-    'vname' => 'LBL_REMOVE',
-    'widget_class' => 'SubPanelRemoveButton',
-    'module' => 'ATC_Appointments',
-    'width' => '5%',
+    'width' => '10%',
     'default' => true,
   ),
 );

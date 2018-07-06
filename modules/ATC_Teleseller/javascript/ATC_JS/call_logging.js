@@ -592,11 +592,10 @@ function ManageAppointments(module, parent_record, email_address, contact_name, 
         '<td>Appointment Status:</td>' +
         '<td><select name="appointment_status">' +
         '<option label="" value=""></option>' +
-        '<option label="Attended" value="Attended">Attended</option>' +
-
-        '<option label="Cancelled" value="Canceled">Cancelled</option>' +
-        '<option label="Accepted" value="Accepted">Accepted</option>' +
-        '<option label="Reschedule" value="Reschedule">Reschedule</option>' +
+        '<option label="Accepted" value="Accepted" selected>Accepted</option>' +
+	'<option label="DC Appt Accepted" value="DC_Appt_Accepted">DC Appt Accepted</option>' +
+	'<option label="Days Calling" value="Days_Calling">Days Calling</option>' +
+	'<option label="Event Registration" value="Event Registration">Event Registration</option>' +
         '</select></td>' +
         '<td></td>' +
         '</tr>' +

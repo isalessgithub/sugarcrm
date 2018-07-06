@@ -1,5 +1,5 @@
 <?php
- // created: 2018-05-07 15:34:01
+ // created: 2018-05-17 13:45:19
 $dictionary['ISS_Company_Project_Assign']['fields']['name']['len']='255';
 $dictionary['ISS_Company_Project_Assign']['fields']['name']['audited']=true;
 $dictionary['ISS_Company_Project_Assign']['fields']['name']['massupdate']=false;
@@ -13,7 +13,7 @@ $dictionary['ISS_Company_Project_Assign']['fields']['name']['full_text_search']=
   'boost' => '1.55',
   'searchable' => true,
 );
-$dictionary['ISS_Company_Project_Assign']['fields']['name']['calculated']='1';
+$dictionary['ISS_Company_Project_Assign']['fields']['name']['calculated']='true';
 $dictionary['ISS_Company_Project_Assign']['fields']['name']['formula']='concat(getDropdownValue("cp_assign_status_list",$cp_assign_status_c)," ",related($tasks_iss_company_project_assign_1,"name")," Project")';
 $dictionary['ISS_Company_Project_Assign']['fields']['name']['enforced']=true;
 

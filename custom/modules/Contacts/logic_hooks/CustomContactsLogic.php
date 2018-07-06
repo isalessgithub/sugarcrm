@@ -38,7 +38,6 @@ class CustomContactsLogic {
   }
   function update_contactcount($bean, $event, $arguments){
 	if(isset($bean->account_id)){
-	   
 	   $account = BeanFactory::getBean('Accounts', $bean->account_id);
 	   if($account->load_relationship('contacts')){
 		$contacts = $account->contacts->getBeans();

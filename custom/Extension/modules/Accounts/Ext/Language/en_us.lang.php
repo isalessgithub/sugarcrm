@@ -23,3 +23,4 @@ $mod_strings['LBL_RECORDVIEW_PANEL2'] = 'Projects';
 $mod_strings['LBL_TASKS_SUBPANEL_TITLE'] = 'Company Projects';
 $mod_strings['LBL_TASKS_ACCOUNTS_1_FROM_TASKS_TITLE'] = 'Company Projects';
 $mod_strings['LBL_MEMBER_OF'] = 'Parent Company';
+$mod_strings['LBL_STUDENTS_COUNT'] = 'Students';

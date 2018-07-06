@@ -16,11 +16,11 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
- 
+
 global $app_strings;
 
 $dashletMeta['ISS_Company_Project_AssignDashlet'] = array('module'		=> 'ISS_Company_Project_Assign',
-										  'title'       => translate('LBL_HOMEPAGE_TITLE', 'ISS_Company_Project_Assign'), 
+										  'title'       => translate('LBL_HOMEPAGE_TITLE', 'ISS_Company_Project_Assign'),
                                           'description' => 'A customizable view into ISS_Company_Project_Assign',
                                           'icon'        => 'icon_ISS_Company_Project_Assign_32.gif',
                                           'category'    => 'Module Views');

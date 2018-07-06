@@ -8,13 +8,13 @@ $layout_defs["Tasks"]["subpanel_setup"]['tasks_iss_company_project_assign_1'] = 
   'sort_by' => 'id',
   'title_key' => 'LBL_TASKS_ISS_COMPANY_PROJECT_ASSIGN_1_FROM_ISS_COMPANY_PROJECT_ASSIGN_TITLE',
   'get_subpanel_data' => 'tasks_iss_company_project_assign_1',
-  'top_buttons' => 
+  'top_buttons' =>
   array (
-    0 => 
+    0 =>
     array (
       'widget_class' => 'SubPanelTopButtonQuickCreate',
     ),
-    1 => 
+    1 =>
     array (
       'widget_class' => 'SubPanelTopSelectButton',
       'mode' => 'MultiSelect',

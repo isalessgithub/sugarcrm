@@ -1,21 +1,22 @@
 <?php
-// created: 2018-05-17 13:46:23
 $subpanel_layout['list_fields'] = array (
-  'name' => 
+  'name' =>
   array (
     'vname' => 'LBL_NAME',
     'widget_class' => 'SubPanelDetailViewLink',
+
     'width' => 10,
     'default' => true,
   ),
-  'cp_assign_status_c' => 
+  'cp_assign_status_c' =>
   array (
     'type' => 'enum',
     'default' => true,
     'vname' => 'LBL_CP_ASSIGN_STATUS',
+
     'width' => 10,
   ),
-  'users_iss_company_project_assign_1_name' => 
+  'users_iss_company_project_assign_1_name' =>
   array (
     'type' => 'relate',
     'link' => true,
@@ -27,7 +28,7 @@ $subpanel_layout['list_fields'] = array (
     'target_module' => 'Users',
     'target_record_key' => 'users_iss_company_project_assign_1users_ida',
   ),
-  'related_campaign_c' => 
+  'related_campaign_c' =>
   array (
     'type' => 'relate',
     'studio' => 'visible',
@@ -40,7 +41,7 @@ $subpanel_layout['list_fields'] = array (
     'target_module' => 'ATC_ISSCampaigns',
     'target_record_key' => 'atc_isscampaigns_id_c',
   ),
-  'booked_appt_c' => 
+  'booked_appt_c' =>
   array (
     'type' => 'relate',
     'studio' => 'visible',
@@ -53,7 +54,7 @@ $subpanel_layout['list_fields'] = array (
     'target_module' => 'ATC_Appointments',
     'target_record_key' => 'atc_appointments_id_c',
   ),
-  'assigned_user_name' => 
+  'assigned_user_name' =>
   array (
     'link' => true,
     'type' => 'relate',
@@ -65,10 +66,10 @@ $subpanel_layout['list_fields'] = array (
     'target_module' => 'Users',
     'target_record_key' => 'assigned_user_id',
   ),
-  'date_entered' => 
+  'date_entered' =>
   array (
     'type' => 'datetime',
-    'studio' => 
+    'studio' =>
     array (
       'portaleditview' => false,
     ),
@@ -77,7 +78,7 @@ $subpanel_layout['list_fields'] = array (
     'width' => 10,
     'default' => true,
   ),
-  'description' => 
+  'description' =>
   array (
     'type' => 'text',
     'vname' => 'LBL_DESCRIPTION',

@@ -33,26 +33,31 @@ $GLOBALS['log']->fatal("1");
 //		$GLOBALS['log']->fatal($index . " - " .$email);
 	    $cp_user_identity = new EmailIdentity($email);
 	    $phpMailer->addRecipientsTo(array($cp_user_identity));
-	}  
+	}
 
     // introduce email recipient (portal user)
     //$cp_user_identity = new EmailIdentity($report['configuration']['email_address']);
     // add the recipient
     //$phpMailer->addRecipientsTo(array($cp_user_identity));
 
-    $GLOBALS['log']->fatal("2");
-    if(isset($report['configuration']['email_address_cc']) && $report['configuration']['email_address_cc'] != ""){
-
+//    $GLOBALS['log']->fatal("2");
     // make sure that CC address is configured
-    if ($cc_address == $report['configuration']['email_address_cc']) {
+    if(isset($report['configuration']['email_address_cc']) && $report['configuration']['email_address_cc'] != ""){
+    //$cc_address = $report['configuration']['email_address_cc'];
 
-        // introduce the CC identity
+    $ccs = explode(";",$report['configuration']['email_address_cc']);
+
+
+    if ($ccs != ""){
+   foreach($ccs as $index => $cc_address) {
+           // introduce the CC identity
         $cc_identity = new EmailIdentity($cc_address);
 
         // add CC recipient
         $phpMailer->addRecipientsCc(array($cc_identity));
     }
-	}
+    }
+    }
     // introduce email object
     $email = new Email();
 
@@ -139,9 +144,11 @@ function generateReport($cp_user_id)
               WHERE cc.atc_isscampaigns_cp_client_users_1cp_client_users_idb = '$cp_user_id'
               AND campaign_start_date_c IS NOT NULL
               AND campaign_start_date_c != ''
-              AND (campaign_finish_date_c > date_sub(now(), INTERVAL 9 MONTH) OR campaign_finish_date_c = '' OR campaign_finish_date_c is null)
+              AND (campaign_finish_date_c = '' OR campaign_finish_date_c is null)
               ORDER BY name
         ";
+//              AND (campaign_finish_date_c > date_sub(now(), INTERVAL 9 MONTH) OR campaign_finish_date_c = '' OR campaign_finish_date_c is null)
+
 
     // execute the query
     $result = $GLOBALS['db']->query($campaigns_query);
@@ -189,7 +196,7 @@ $GLOBALS['log']->fatal("x");
 
         // build query
         $query = "
-                 SELECT 
+                 SELECT
                     SUM(CASE WHEN atc_appointments.date_entered >= '" . $last_7 . "' THEN 1 ELSE 0 END) AS appointments_last_week,
                     SUM(CASE WHEN appointment_date >= '" . $last_7 . "' and (appointment_status='Attended' OR appointment_status = 'Attended_Policy') THEN 1 ELSE 0 END) AS attended_last_week,
                     SUM(CASE WHEN appointment_status = 'Reschedule' THEN 1 ELSE 0 END) AS num_rescheduled,
@@ -200,7 +207,7 @@ $GLOBALS['log']->fatal("x");
                     SUM(CASE WHEN appointment_status IN ('Attended','Attended_Policy','Cancelled','Accepted','Reschedule','Confirmed') THEN 1 ELSE 0 END) AS num_appointments,
                     SUM(CASE WHEN appointment_status = 'Attended_Policy' THEN 1 ELSE 0 END) AS attended_policy,
                     camp.name AS CampName
-                 FROM atc_appointments 
+                 FROM atc_appointments
                     INNER JOIN atc_isscampaigns_atc_appointments_c ca ON ca.atc_isscampaigns_atc_appointmentsatc_appointments_idb = atc_appointments.id
                     INNER JOIN atc_isscampaigns camp ON camp.id = ca.atc_isscampaigns_atc_appointmentsatc_isscampaigns_ida
                     LEFT JOIN prospectlists_atc_appointments_1_c ta ON ta.prospectlists_atc_appointments_1atc_appointments_idb = atc_appointments.id
@@ -297,13 +304,13 @@ $GLOBALS['log']->fatal("x");
 			u + .body table._ac_social_table td, u + .body table._ac_social_table div, u + .body table._ac_social_table a { display: inline-block !important; margin: auto !important; width: auto !important; min-width: auto !important; text-align: center !important; } u + .body table._ac_social_table img { display: inline-block !important; margin: auto !important; width: 32px !important; min-width: 32px !important; max-width: 32px !important; }
 		}
 	</style><!--[if !mso]><!-- webfonts --><!--<![endif]--><!--[if lt mso 12]> <![endif]--></head><body id="ac-designer" class="body" style="font-family: Arial; line-height: 1.1; margin: 0px; background-color: #dedede; width: 100%; text-align: center;"><div class="divbody" style="margin: 0px; outline: none; padding: 0px; color: #000000; font-family: arial; line-height: 1.1; width: 100%; background-color: #dedede; background: #dedede; text-align: center;"><table class="template-table" border="0" cellpadding="0" cellspacing="0" width="100%" align="left" style="font-size: 13px; min-width: auto; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #dedede; background: #dedede;"><tr><td align="center" valign="top" width="100%"><table class="template-table" border="0" cellpadding="0" cellspacing="0" width="650" bgcolor="#dedede" style="font-size: 13px; min-width: auto; mso-table-lspace: 0pt; mso-table-rspace: 0pt; max-width: 650px;"><tr><td id="layout_table_1f6e763dfa9f109cc0c0501cde133d3dae1dcb01" valign="top" align="center" width="650" style="background-color: #ffffff;"><table cellpadding="0" cellspacing="0" border="0" class="layout layout-table root-table" width="650" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff;"><tr id="layout-row317" class="layout layout-row clear-this " style="background-color: #ffffff;"><td id="layout-row-padding317" valign="top" style="background-color: #ffffff;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td id="layout_table_2afa3100c2712b7211e328a236a226d7008278b1" valign="top" width="138" style="background-color: #dedede;"><table cellpadding="0" cellspacing="0" border="0" class="layout layout-table " width="138" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;
-	background-color: #dedede;"><tr style="background-color: #dedede;"><td id="layout-row-margin316" valign="top" style="padding: 10px; background-color: #dedede;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: initial !important;"><tr id="layout-row316" class="layout layout-row widget _widget_social style316" style=""><td id="layout-row-padding316" valign="top" style="padding: 0px;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td><table width="100%" cellspacing="0" cellpadding="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td width="138" align="left"> <center style="margin: 0; outline: none; padding: 0; font-size: 0px;"> <table class="_ac_social_table" cellspacing="0" cellpadding="0" align="center" style="font-size: 0; min-width: auto!important; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: auto!important; display: inline-block!important; text-align: center!important;"><tr><td align="center" valign="middle" width="27" style="display:inline-block!important;font-size:0;width:27px!important;"><div class="__ac_social_icons" style="margin: 0; outline: none; padding: 0;"><a href="http://insidesalessolutions.acemlnc.com/lt.php?notrack=1&amp;s=6e1582b74813af8357e9ad2b67d5933f&amp;i=8A12A3A31" id="facebook" class="__ac_social_icon_link" style="margin: 0; outline: none; padding: 0; color: #045fb4;" target="_blank"><img src="http://insidesalessolutions.img-us6.com/_social_/flat-color-round-facebook.png" border="0" width="27" style="display: block; border: none;"></a></div>
+	background-color: #dedede;"><tr style="background-color: #dedede;"><td id="layout-row-margin316" valign="top" style="padding: 10px; background-color: #dedede;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: initial !important;"><tr id="layout-row316" class="layout layout-row widget _widget_social style316" style=""><td id="layout-row-padding316" valign="top" style="padding: 0px;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td><table width="100%" cellspacing="0" cellpadding="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td width="138" align="left"> <center style="margin: 0; outline: none; padding: 0; font-size: 0px;"> <table class="_ac_social_table" cellspacing="0" cellpadding="0" align="center" style="font-size: 0; min-width: auto!important; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: auto!important; display: inline-block!important; text-align: center!important;"><tr><td align="center" valign="middle" width="27" style="display:inline-block!important;font-size:0;width:27px!important;"><div class="__ac_social_icons" style="margin: 0; outline: none; padding: 0;"><a href="https://www.facebook.com/insidesalessolutions/" id="facebook" class="__ac_social_icon_link" style="margin: 0; outline: none; padding: 0; color: #045fb4;" target="_blank"><img src="http://insidesalessolutions.img-us6.com/_social_/flat-color-round-facebook.png" border="0" width="27" style="display: block; border: none;"></a></div>
 </td>
 <td width="10" style="display:inline-block!important;font-size:0;width:10px!important;">&#xA0;</td>
-<td align="center" valign="middle" width="27" style="display:inline-block!important;font-size:0;width:27px!important;"><div class="__ac_social_icons" style="margin: 0; outline: none; padding: 0;"><a href="http://insidesalessolutions.acemlnc.com/lt.php?notrack=1&amp;s=6e1582b74813af8357e9ad2b67d5933f&amp;i=8A12A3A32" id="twitter" class="__ac_social_icon_link" style="margin: 0; outline: none; padding: 0; color: #045fb4;" target="_blank"><img src="http://insidesalessolutions.img-us6.com/_social_/flat-color-round-twitter.png" border="0" width="27" style="display: block; border: none;"></a></div>
+<td align="center" valign="middle" width="27" style="display:inline-block!important;font-size:0;width:27px!important;"><div class="__ac_social_icons" style="margin: 0; outline: none; padding: 0;"><a href="https://twitter.com/isalessdotcom" id="twitter" class="__ac_social_icon_link" style="margin: 0; outline: none; padding: 0; color: #045fb4;" target="_blank"><img src="http://insidesalessolutions.img-us6.com/_social_/flat-color-round-twitter.png" border="0" width="27" style="display: block; border: none;"></a></div>
 </td>
 <td width="10" style="display:inline-block!important;font-size:0;width:10px!important;">&#xA0;</td>
-<td align="center" valign="middle" width="27" style="display:inline-block!important;font-size:0;width:27px!important;"><div class="__ac_social_icons" style="margin: 0; outline: none; padding: 0;"><a href="http://insidesalessolutions.acemlnc.com/lt.php?notrack=1&amp;s=6e1582b74813af8357e9ad2b67d5933f&amp;i=8A12A3A33" id="linkedin" class="__ac_social_icon_link" style="margin: 0; outline: none; padding: 0; color: #045fb4;" target="_blank"><img src="http://insidesalessolutions.img-us6.com/_social_/flat-color-round-linkedin.png" border="0" width="27" style="display: block; border: none;"></a></div>
+<td align="center" valign="middle" width="27" style="display:inline-block!important;font-size:0;width:27px!important;"><div class="__ac_social_icons" style="margin: 0; outline: none; padding: 0;"><a href="https://www.linkedin.com/company/inside-sales-solutions/" id="linkedin" class="__ac_social_icon_link" style="margin: 0; outline: none; padding: 0; color: #045fb4;" target="_blank"><img src="http://insidesalessolutions.img-us6.com/_social_/flat-color-round-linkedin.png" border="0" width="27" style="display: block; border: none;"></a></div>
 </td>
 </tr>
 </table>
@@ -447,8 +454,10 @@ $GLOBALS['log']->fatal("x");
 </td>
 </tr>
 <tr style="background-color: #ffffff;"><td id="layout-row-margin292" valign="top" style="padding: 0; background-color: #ffffff;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: initial !important;"><tr id="layout-row292" class="layout layout-row widget _widget_text style292" style="margin: 0; padding: 0; background-color: #ffffff;"><td id="layout-row-padding292" valign="top" style="background-color: #ffffff; padding: 0px 26px 0px 26px;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td id="text_div236" class="td_text td_block" valign="top" align="left" style="line-height: 150%; color: inherit; font-size: 12px; font-weight: inherit; line-height: 1.5; text-decoration: inherit; font-family: Arial; mso-line-height-rule: exactly;"> <div style="line-height: 150%; margin: 0; outline: none; padding: 0; text-align: center; mso-line-height-rule: exactly; line-height: 1.5;" class="" data-line-height="1.5"> <p class="p1" style="margin: 0; outline: none; padding: 0; color: #555555; font-size: inherit; font-weight: inherit; line-height: inherit; text-decoration: inherit; text-align: left;"><span style="color: #555555; font-size: 15px; font-weight: inherit; line-height: inherit; text-decoration: inherit;" class=""> </span></p>
-	<div style="margin: 0; outline: none; padding: 0; text-align: center; font-family: arial; color: #555555; font-size: 15px; font-style: normal;" class=""><span style="color: #555555; font-size: inherit; font-weight: bold; line-height: inherit; text-decoration: inherit;" class="">Hi Dani,</span></div>
-	<br style="color: #555555;color: #555555;" class=""><div style="margin: 0; outline: none; padding: 0; text-align: center; font-family: arial; color: #555555; font-size: 15px; font-style: normal;" class="">Your summary report for {Campaign Name} is ready. <br>Total appointments attended are<span style="color: #04b431; font-size: inherit; font-weight: bold; line-height: inherit; text-decoration: inherit;" class=""> {number of appointments}</span></div>
+	<div style="margin: 0; outline: none; padding: 0; text-align: center; font-family: arial; color: #555555; font-size: 15px; font-style: normal;" class=""><span style="color: #555555; font-size: inherit; font-weight: bold; line-height: inherit; text-decoration: inherit;" class="">Hi,</span></div>
+	<br style="color: #555555;color: #555555;" class=""><div style="margin: 0; outline: none; padding: 0; text-align: center; font-family: arial; color: #555555; font-size: 15px; font-style: normal;" class="">Your summary report is ready.
+<!-- <br>Total appointments attended are<span style="color: #04b431; font-size: inherit; font-weight: bold; line-height: inherit; text-decoration: inherit;" class=""> {number of appointments}</span>-->
+</div>
 	<div style="margin: 0; outline: none; padding: 0; text-align: left; color: #555555; font-size: 15px;" class=""><br><div style="margin: 0; outline: none; padding: 0; text-align: center;"><span style="color: #555555; font-size: inherit; font-weight: inherit; line-height: inherit; text-decoration: inherit;" class="">View your full campaign results daily via your portal access </span></div>
 </div>
 <p class="" style="margin: 0; outline: none; padding: 0; color: inherit; font-size: inherit; font-weight: inherit; line-height: inherit; text-decoration: inherit;"></p>
@@ -466,7 +475,7 @@ $GLOBALS['log']->fatal("x");
 </tr>
 <tr style="background-color: #ffffff;"><td id="layout-row-margin339" valign="top" style="padding: 5px; background-color: #ffffff;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: initial !important;"><tr id="layout-row339" class="layout layout-row widget _widget_button style339" style=""><td id="layout-row-padding339" valign="top" style="padding: 5px;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td class="td_button td_block customizable" valign="top" align="left" width="630"> <div class="button-wrapper" style="margin: 0; outline: none; padding: 0; text-align: center;">
 	<!--[if mso]> <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://insidesalessolutions.acemlnc.com/lt.php?notrack=1&s=6e1582b74813af8357e9ad2b67d5933f&i=8A12A3A34" style="v-text-anchor:middle; width:144px; height:59px; font-weight: bold;" arcsize="10%" strokecolor="#B5B5B5" strokeweight="0pt" fillcolor="#37c1d5" o:button="true" o:allowincell="true" o:allowoverlap="false" > <v:textbox inset="2px,2px,2px,2px"> <center style="color:#ffffff;font-family:Arial; font-size:15px; font-weight: bold;line-height: 1.1;">Access Portal</center> </v:textbox> </v:roundrect>
-	<![endif]--> <a href="http://insidesalessolutions.acemlnc.com/lt.php?notrack=1&amp;s=6e1582b74813af8357e9ad2b67d5933f&amp;i=8A12A3A34" style="margin: 0; outline: none; padding: 12px; color: #ffffff; background-color: #37c1d5; border: 0px solid #B5B5B5; border-radius: 3px; font-family: Arial; font-size: 15px; display: inline-block; line-height: 1.1; text-align: center; text-decoration: none; mso-hide: all;" target="_blank"> <span style="color:#ffffff;font-family:Arial;font-size:15px;font-weight: bold;"> Access Portal </span> </a> </div>
+	<![endif]--> <a href="https://portal.isaless.com" style="margin: 0; outline: none; padding: 12px; color: #ffffff; background-color: #37c1d5; border: 0px solid #B5B5B5; border-radius: 3px; font-family: Arial; font-size: 15px; display: inline-block; line-height: 1.1; text-align: center; text-decoration: none; mso-hide: all;" target="_blank"> <span style="color:#ffffff;font-family:Arial;font-size:15px;font-weight: bold;"> Access Portal </span> </a> </div>
 
 </td>
 </tr>
@@ -510,8 +519,8 @@ $GLOBALS['log']->fatal("x");
 					<td id="layout-row-padding305" valign="top" style="background-color: #ffffff; padding: 26px;">
 						<table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 							<tr>
-								<td id="text_div248" class="td_text td_block" valign="top" align="left" style="line-height: 130%; color: inherit; font-size: 12px; font-weight: inherit; line-height: 1.3; text-decoration: inherit; font-family: Arial; mso-line-height-rule: exactly;"> 
-									<div style="line-height:130%; margin: 0; outline: none; padding: 0; color: #0b3861; mso-line-height-rule: exactly; line-height: 1.3;" data-line-height="1.3"> 
+								<td id="text_div248" class="td_text td_block" valign="top" align="left" style="line-height: 130%; color: inherit; font-size: 12px; font-weight: inherit; line-height: 1.3; text-decoration: inherit; font-family: Arial; mso-line-height-rule: exactly;">
+									<div style="line-height:130%; margin: 0; outline: none; padding: 0; color: #0b3861; mso-line-height-rule: exactly; line-height: 1.3;" data-line-height="1.3">
 									<div style="margin: 0; outline: none; padding: 0; text-align: center; color: #0b3861;">
 										<span style="color: #0b3861; font-size: 23px; font-weight: bold; line-height: inherit; text-decoration: inherit;" class="">Summary <br>
 										</span>
@@ -549,15 +558,15 @@ $GLOBALS['log']->fatal("x");
                     <tr>
                         <td style='border: 1px solid black; padding: 5px;'>New appointments last week:</td>
                         <td style='border: 1px solid black; padding-right:5px;  background-color: #FFF1CE; text-align: right; width: 20%;'>{$campaign_data['last_week']}</td>
-                    </tr>  
+                    </tr>
                     <tr>
                         <td style='border: 1px solid black; padding: 5px;'>Appointments attended last week:</td>
                         <td style='border: 1px solid black; padding-right:5px; background-color: #FFF1CE; text-align: right;'>{$campaign_data['attended_last_week']}</td>
-                    </tr>   
+                    </tr>
                     <tr>
                         <td style='border: 1px solid black; padding: 5px;'>Appointments to reschedule:</td>
                         <td style='border: 1px solid black; padding-right:5px; background-color: #FFF1CE; text-align: right;'>{$campaign_data['to_reschedule']}</td>
-                    </tr>  
+                    </tr>
                     <tr>
                         <td style='border: 1px solid black; padding: 5px;'>Total appointments generated:</td>
                         <td style='border: 1px solid black; padding-right:5px; background-color: #FFF1CE; text-align: right;'>{$campaign_data['total']}</td>

@@ -41,7 +41,6 @@ function ms_snapshot_report()
         // check if time for sending has come
         $now = $timedate->getNow(true);
 	$now->setTimezone(new DateTimeZone('America/New_York'));
-	$GLOBALS['log']->fatal("hour:".$now->format('h'));
         // make sure that report needs to be sent today
         if ($now->day_of_week != $configuration['send_at_day']) {
             continue;
@@ -81,7 +80,6 @@ function ms_snapshot_report()
 
         // retrieve the logs
         $logs = $configuration_bean->ms_reportdeliveryconfiguration_ms_reportdeliverylog_1->getBeans();
-
 	$cont = false;
         // make sure that at least one log exists
         if ($logs) {
@@ -97,14 +95,11 @@ function ms_snapshot_report()
 
                     // report log exists, don't send another report!
                     //return false;
-		    $cont = true;
+			$cont = true;
                 }
             }
         }
-	if($cont){
-		continue;
-	}
-
+	if($cont){continue;}
         // introduce new log bean
         $log_bean = BeanFactory::newBean('MS_ReportDeliveryLog');
 

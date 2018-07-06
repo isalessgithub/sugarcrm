@@ -1,5 +1,5 @@
 <?php
- // created: 2018-05-01 10:03:06
+ // created: 2018-05-11 15:35:25
 
 $app_list_strings['call_outcome_dom']=array (
   'Call' => 'Call',
@@ -13,6 +13,7 @@ $app_list_strings['call_outcome_dom']=array (
   'Short_Term_Call_Back' => 'Short Term Call Back',
   'Invite_Sent' => 'Invite Sent',
   'Lead Generated' => 'Lead Generated',
+  'duplicate' => 'Duplicate',
   'Cancelled' => 'Cancelled',
   'Not Interested' => 'Not Interested',
   'WrongContact' => 'Wrong Contact',
