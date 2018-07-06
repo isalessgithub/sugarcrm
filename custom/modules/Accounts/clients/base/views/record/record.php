@@ -237,13 +237,21 @@ array (
               ),
               8 => 
               array (
-                'name' => 'parent_name',
+                'name' => 'students_count_c',
+                'label' => 'LBL_STUDENTS_COUNT',
               ),
               9 => 
               array (
-                'name' => 'ownership',
               ),
               10 => 
+              array (
+                'name' => 'parent_name',
+              ),
+              11 => 
+              array (
+                'name' => 'ownership',
+              ),
+              12 => 
               array (
                 'name' => 'description',
                 'span' => 12,

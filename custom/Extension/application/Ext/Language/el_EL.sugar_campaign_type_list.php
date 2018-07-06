@@ -1,8 +1,7 @@
 <?php
- // created: 2018-05-09 11:03:10
+ // created: 2018-07-03 11:01:01
 
 $app_list_strings['campaign_type_list']=array (
-  'appointment setting' => 'Appointment Setting',
   'f2f appointment setting' => 'F2F Appointment Setting',
   '' => '',
   'webcall only appointment setting' => 'Web/Call Only Appointment Setting',

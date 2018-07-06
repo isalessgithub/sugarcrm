@@ -40,7 +40,7 @@ function ms_snapshot_report()
 
         // check if time for sending has come
         $now = $timedate->getNow(true);
-
+	$now->setTimezone(new DateTimeZone('America/New_York'));
         // make sure that report needs to be sent today
         if ($now->day_of_week != $configuration['send_at_day']) {
             continue;

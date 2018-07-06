@@ -76,13 +76,17 @@ array (
         ),
         1 => 
         array (
-          0 => 'employee_status',
-          1 => 'show_on_employees',
+          0 => 'title',
+          1 => 
+          array (
+            'name' => 'bu_team_c',
+            'label' => 'LBL_BU_TEAM',
+          ),
         ),
         2 => 
         array (
-          0 => 'title',
-          1 => 'department',
+          0 => 'employee_status',
+          1 => 'show_on_employees',
         ),
         3 => 
         array (

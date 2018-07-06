@@ -21,7 +21,7 @@ class  MS_CreateOpportunity
     function createOpportunity($bean, $event, $arguments)
     {
 	$campaign_bean = BeanFactory::retrieveBean("ATC_ISSCampaigns", $bean->id, array('disable_row_level_security' => true));
-
+/*
 	$GLOBALS['log']->fatal($campaign_bean->name." ".$campaign_bean->id);
 	$GLOBALS['log']->fatal("num related opps");
 	$GLOBALS['log']->fatal(count($campaign_bean->get_linked_beans('atc_isscampaigns_opportunities_1', 'Opportunities')));
@@ -35,9 +35,25 @@ class  MS_CreateOpportunity
 	else{
 		$continue = 0;
 	}
+*/
+	$db = DBManagerFactory::getInstance();
 
+//	$GLOBALS['db'];
+	$query ="select count(id) as count from atc_isscampaigns_opportunities_1_c where atc_isscampaigns_opportunities_1_c.atc_isscampaigns_opportunities_1atc_isscampaigns_ida = '".$campaign_bean->id."' and deleted=0;";
+	$res = $GLOBALS['db']->query($query);
+	//$res = $conn->executeQuery($query);
+	 
+	$count = '99';
+	while($row = $GLOBALS['db']->fetchByAssoc($res)){
+		$count = $row['count'];
+	}
+
+//	$GLOBALS['log']->fatal($campaign_bean->campaign_start_date_c);
        //if(count($campaign_bean->get_linked_beans('atc_isscampaigns_opportunities_1', 'Opportunities')) == 0){
-	if($continue == 1){
+	if(($count == 0 || $count == "0") && $campaign_bean->campaign_start_date_c != ''){
+//	$GLOBALS['log']->fatal(json_encode($arguments,JSON_PRETTY_PRINT));
+
+
 	$GLOBALS['log']->fatal("Creating new opp");
 	// load relationship between campaign and opportunities
         $campaign_bean->load_relationship('atc_isscampaigns_opportunities_1');
@@ -53,6 +69,10 @@ class  MS_CreateOpportunity
 
         // name the new opportunity
         $opportunity_bean->name = $campaign_bean->name . ' Opportunity';
+
+	$opportunity_bean->sales_stage = "Closed Lost";
+
+	$opportunity_bean->amount = "10000";
 
         // save the opportunity
         $opportunity_bean->save();
@@ -82,6 +102,7 @@ class  MS_CreateOpportunity
             $client_bean->atc_clients_opportunities_1->add($opportunity_bean->id);
         }
 	//end if
+
 	}
     }
 
