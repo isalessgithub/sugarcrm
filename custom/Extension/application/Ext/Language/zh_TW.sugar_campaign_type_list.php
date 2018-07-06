@@ -1,5 +1,5 @@
 <?php
- // created: 2018-02-20 17:02:22
+ // created: 2018-05-09 11:08:52
 
 $app_list_strings['campaign_type_list']=array (
   'appointment setting' => 'Appointment Setting',
@@ -7,4 +7,7 @@ $app_list_strings['campaign_type_list']=array (
   '' => '',
   'webcall only appointment setting' => 'Web/Call Only Appointment Setting',
   'event campaign' => 'Event Campaign',
+  'recruitment campaign' => 'Recruitment Campaign',
+  'direct mail campaign' => 'Direct Mail Campaign',
+  'database services' => 'Database Services',
 );

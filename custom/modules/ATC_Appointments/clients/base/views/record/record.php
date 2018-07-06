@@ -237,79 +237,91 @@ array (
               array (
                 'name' => 'accounts_atc_appointments_1_name',
                 'label' => 'LBL_ACCOUNTS_ATC_APPOINTMENTS_1_FROM_ACCOUNTS_TITLE',
-                'span' => 12,
               ),
               7 => 
+              array (
+              ),
+              8 => 
               array (
                 'name' => 'atc_appointments_contacts_name',
                 'label' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_CONTACTS_TITLE',
               ),
-              8 => 
+              9 => 
               array (
                 'name' => 'title_c',
                 'studio' => 'visible',
                 'label' => 'LBL_TITLE',
               ),
-              9 => 
+              10 => 
               array (
                 'name' => 'direct_c',
                 'studio' => 'visible',
                 'label' => 'LBL_DIRECT',
               ),
-              10 => 
+              11 => 
               array (
                 'name' => 'switchboard_c',
                 'studio' => 'visible',
                 'label' => 'LBL_SWITCHBOARD',
               ),
-              11 => 
+              12 => 
               array (
                 'name' => 'contact_email',
                 'label' => 'LBL_CONTACT_EMAIL',
               ),
-              12 => 
+              13 => 
               array (
                 'name' => 'contact_info_c',
                 'studio' => 'visible',
                 'label' => 'LBL_CONTACT_INFO',
               ),
-              13 => 
+              14 => 
               array (
                 'name' => 'description',
                 'comment' => 'Full text of the note',
                 'label' => 'LBL_DESCRIPTION',
                 'span' => 12,
               ),
-              14 => 
+              15 => 
               array (
                 'name' => 'atc_isscampaigns_atc_appointments_name',
                 'label' => 'LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_ISSCAMPAIGNS_TITLE',
               ),
-              15 => 
+              16 => 
               array (
                 'name' => 'partial_comp_c',
                 'label' => 'LBL_PARTIAL_COMP',
               ),
-              16 => 
+              17 => 
               array (
                 'name' => 'prospectlists_atc_appointments_1_name',
                 'label' => 'LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE',
               ),
-              17 => 
-              array (
-              ),
               18 => 
+              array (
+                'name' => 'partial_amount_c',
+                'label' => 'LBL_PARTIAL_AMOUNT',
+              ),
+              19 => 
               array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO',
               ),
-              19 => 
+              20 => 
               array (
                 'name' => 'created_by_name',
                 'readonly' => true,
                 'label' => 'LBL_CREATED',
               ),
-              20 => 
+              21 => 
+              array (
+                'name' => 'appt_bu_c',
+                'label' => 'LBL_APPT_BU',
+              ),
+              22 => 
+              array (
+              ),
+              23 => 
               array (
                 'name' => 'date_modified',
                 'comment' => 'Date record last modified',
@@ -320,7 +332,7 @@ array (
                 'readonly' => true,
                 'label' => 'LBL_DATE_MODIFIED',
               ),
-              21 => 
+              24 => 
               array (
                 'name' => 'date_entered',
                 'comment' => 'Date record created',

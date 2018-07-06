@@ -40,3 +40,5 @@ $mod_strings['LBL_CAMPAIGN_TERRITORY'] = 'Territory';
 $mod_strings['LBL_CAMPAIGN_TYPE'] = 'Campaign Type';
 $mod_strings['LBL_CAMPAIGN_PRICE'] = 'Price';
 $mod_strings['LBL_CURRENCY'] = 'LBL_CURRENCY';
+$mod_strings['LBL_RECORDVIEW_PANEL5'] = 'New Panel 5';
+$mod_strings['LBL_ISS2_CAMPAIGN_ASSIGNMENT_ATC_ISSCAMPAIGNS_FROM_ISS2_CAMPAIGN_ASSIGNMENT_TITLE'] = 'Business Unit Results';

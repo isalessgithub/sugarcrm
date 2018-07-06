@@ -37,6 +37,11 @@ array (
           'newTab' => false,
           'panelDefault' => 'expanded',
         ),
+        'LBL_EDITVIEW_PANEL1' => 
+        array (
+          'newTab' => false,
+          'panelDefault' => 'expanded',
+        ),
       ),
       'syncDetailEditViews' => true,
     ),
@@ -76,40 +81,39 @@ array (
         ),
         1 => 
         array (
-          0 => 'employee_status',
-          1 => 'show_on_employees',
+          0 => 'title',
+          1 => 
+          array (
+            'name' => 'business_unit_c',
+            'label' => 'LBL_BUSINESS_UNIT',
+          ),
         ),
         2 => 
         array (
-          0 => 'title',
-          1 => 'department',
+          0 => 'employee_status',
+          1 => 'show_on_employees',
         ),
         3 => 
-        array (
-          0 => 'reports_to_name',
-          1 => '',
-        ),
-        4 => 
         array (
           0 => 'phone_work',
           1 => 'phone_mobile',
         ),
-        5 => 
+        4 => 
         array (
           0 => 'phone_other',
           1 => 'phone_home',
         ),
-        6 => 
+        5 => 
         array (
           0 => 'address_street',
           1 => 'address_city',
         ),
-        7 => 
+        6 => 
         array (
           0 => 'address_state',
           1 => 'address_postalcode',
         ),
-        8 => 
+        7 => 
         array (
           0 => 
           array (
@@ -130,9 +134,21 @@ array (
             'label' => 'LBL_CREATED_BY_NAME',
           ),
         ),
-        9 => 
+        8 => 
         array (
           0 => 'description',
+        ),
+      ),
+      'lbl_editview_panel1' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            'name' => 'cpa_count_c',
+            'label' => 'LBL_CPA_COUNT',
+          ),
+          1 => '',
         ),
       ),
     ),

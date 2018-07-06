@@ -149,9 +149,13 @@ array (
               array (
                 'name' => 'users_atc_isscampaigns_1_name',
                 'label' => 'LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE',
-		'required' => true,
+                'required' => true,
               ),
               18 => 
+              array (
+              ),
+              19 => 'team_name',
+              20 => 
               array (
                 'name' => 'description',
                 'span' => 12,

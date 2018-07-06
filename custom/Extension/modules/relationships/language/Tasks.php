@@ -16,3 +16,5 @@ $mod_strings['LBL_CONTACTS_TASKS_1_FROM_CONTACTS_TITLE'] = 'Contacts';
 $mod_strings['LBL_CONTACTS_TASKS_1_FROM_TASKS_TITLE'] = 'Contacts';
 $mod_strings['LBL_ATC_APPOINTMENTS_TASKS_2_FROM_ATC_APPOINTMENTS_TITLE'] = 'Contact Appointments';
 $mod_strings['LBL_ATC_APPOINTMENTS_TASKS_2_FROM_TASKS_TITLE'] = 'Contact Appointments';
+$mod_strings['LBL_TASKS_ISS_COMPANY_PROJECT_ASSIGN_1_FROM_ISS_COMPANY_PROJECT_ASSIGN_TITLE'] = 'Company Project Assignments';
+$mod_strings['LBL_TASKS_ISS_COMPANY_PROJECT_ASSIGN_1_FROM_TASKS_TITLE'] = 'Company Project Assignments';

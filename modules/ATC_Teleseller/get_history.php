@@ -19,7 +19,7 @@ function callHistory($record){
     global $db;
 
     // Return 10 most recent calls
-    $sql = "SELECT pl.name as TLName ,calls.description AS Description, MAX(calls.date_entered) AS Create_Date, calls_cstm.call_outcome_c AS Outcome FROM calls
+    $sql = "SELECT pl.name as TLName ,calls.description AS Description, CONVERT_TZ(MAX(calls.date_entered),'GMT','US/Eastern') AS Create_Date, calls_cstm.call_outcome_c AS Outcome FROM calls
 	LEFT JOIN calls_contacts ON calls.id = calls_contacts.call_id
 	INNER JOIN calls_cstm ON calls.id = calls_cstm.id_c
 	LEFT JOIN prospectlists_calls_1_c AS plc ON plc.prospectlists_calls_1calls_idb = calls.id
@@ -44,8 +44,10 @@ function callHistory($record){
 function noteHistory($record){
     global $db;
 
+	//global $timedate;
+	//$GLOBALS['log']->fatal($timedate->getInstance->userTimezone());
     // Return 10 most recent notes
-    $note_sql = "SELECT notes.name AS 'NAME', notes.date_entered AS Create_Date, tl.name AS 'target_list_name' FROM notes
+    $note_sql = "SELECT notes.name AS 'NAME', CONVERT_TZ(notes.date_entered,'GMT','US/Eastern') AS Create_Date, tl.name AS 'target_list_name' FROM notes
 INNER JOIN prospectlists_notes_1_c AS tln ON tln.prospectlists_notes_1notes_idb = notes.id
 INNER JOIN prospect_lists AS tl ON tl.id = tln.prospectlists_notes_1prospectlists_ida
 WHERE notes.contact_id = '" . $record . " ' AND notes.deleted = 0 ORDER BY notes.date_entered DESC LIMIT 10";

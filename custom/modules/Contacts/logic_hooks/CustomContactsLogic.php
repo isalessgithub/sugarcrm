@@ -24,8 +24,8 @@ class CustomContactsLogic {
           $iss_campaign = BeanFactory::getBean("ATC_ISSCampaigns",$target_list->atc_isscampaigns_prospectlists_1atc_isscampaigns_ida);
           $iss_campaign->load_relationship("atc_isscampaigns_accounts");
           $iss_campaign->atc_isscampaigns_accounts->add($bean->account_id);
-          $iss_campaign->load_relationship("atc_isscampaigns_contacts");
-          $iss_campaign->atc_isscampaigns_contacts->add($bean->id);
+          //$iss_campaign->load_relationship("atc_isscampaigns_contacts");
+          //$iss_campaign->atc_isscampaigns_contacts->add($bean->id);
         }
       }
     }

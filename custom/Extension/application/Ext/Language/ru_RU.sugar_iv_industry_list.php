@@ -1,5 +1,5 @@
 <?php
- // created: 2017-05-16 11:00:42
+ // created: 2018-06-18 16:04:39
 
 $app_list_strings['iv_industry_list']=array (
   'aerospace and defense' => 'Aerospace and Defense',
@@ -34,24 +34,6 @@ $app_list_strings['iv_industry_list']=array (
   'transportation' => 'Transportation',
   'banking' => 'Banking',
   'not for profit' => 'Not for Profit',
-  'ComputersandElectronics' => 'Computers & Electronics',
-  'SoftwareandInternet' => 'Software & Internet',
-  'ArchitectureandEngineeringServices' => 'Architecture and Engineering Services',
-  'ConsumerProducts' => 'Consumer Products',
-  'ConsumerServices' => 'Consumer Services',
-  'BusinessServices' => 'Business Services',
-  'EnergyandUtilities' => 'Energy & Utilities',
-  'FinancialServices' => 'Financial Services',
-  'FoodandBeverage' => 'Food & Beverage',
-  'Manufacturing' => 'Manufacturing',
-  'TravelRecreationandLeisure' => 'Travel, Recreation & Leisure',
-  'MediaandEntertainment' => 'Media & Entertainment',
-  'HealthcarePharmaceuticalsandBiotech' => 'Healthcare, Pharmaceuticals & Biotech',
-  'RealEstateandConstruction' => 'Real Estate & Construction',
-  'Education' => 'Education',
-  'TransportationandStorage' => 'Transportation & Storage',
   'Other' => 'Other',
-  'NetworkingEquipmentandSystems' => 'Networking Equipment & Systems',
-  'WholesaleandDistribution' => 'Wholesale & Distribution',
   '' => '',
 );
