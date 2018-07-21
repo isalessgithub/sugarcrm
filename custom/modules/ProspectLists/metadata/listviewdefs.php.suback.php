@@ -8,6 +8,13 @@ array (
     'link' => true,
     'default' => true,
   ),
+  'account_total_c' => 
+  array (
+    'type' => 'int',
+    'label' => 'LBL_ACCOUNT_TOTAL',
+    'width' => '10%',
+    'default' => true,
+  ),
   'description' => 
   array (
     'width' => '40%',
@@ -30,18 +37,29 @@ array (
     'width' => '10%',
     'default' => true,
   ),
+  'created_by_name' => 
+  array (
+    'type' => 'relate',
+    'readonly' => true,
+    'label' => 'LBL_CREATED',
+    'id' => 'CREATED_BY',
+    'link' => true,
+    'width' => '10%',
+    'default' => true,
+  ),
+  'assigned_user_name' => 
+  array (
+    'width' => '10%',
+    'label' => 'LBL_LIST_ASSIGNED_USER',
+    'module' => 'Employees',
+    'id' => 'ASSIGNED_USER_ID',
+    'default' => true,
+  ),
   'date_modified' => 
   array (
     'type' => 'datetime',
     'label' => 'LBL_DATE_MODIFIED',
     'width' => '10%',
-    'default' => true,
-  ),
-  'entry_count' => 
-  array (
-    'type' => 'int',
-    'label' => 'LBL_LIST_ENTRIES',
-    'width' => '10%',
-    'default' => true,
+    'default' => false,
   ),
 );

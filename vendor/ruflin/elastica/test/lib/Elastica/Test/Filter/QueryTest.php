@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Filter;
 
 use Elastica\Filter\Query;
@@ -8,6 +7,9 @@ use Elastica\Test\Base as BaseTest;
 
 class QueryTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testSimple()
     {
         $query = new QueryString('foo bar');
@@ -24,6 +26,9 @@ class QueryTest extends BaseTest
         $this->assertEquals($expected, $filter->toArray());
     }
 
+    /**
+     * @group unit
+     */
     public function testExtended()
     {
         $query = new QueryString('foo bar');

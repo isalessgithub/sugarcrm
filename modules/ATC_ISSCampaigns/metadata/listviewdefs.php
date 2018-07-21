@@ -1,10 +1,9 @@
 <?php
-$module_name = 'ATC_ISSCampaigns';
-$listViewDefs [$module_name] = 
-array (
+// created: 2018-03-09 13:26:31
+$listViewDefs['ATC_ISSCampaigns'] = array (
   'NAME' => 
   array (
-    'width' => '32%',
+    'width' => '32',
     'label' => 'LBL_NAME',
     'default' => true,
     'link' => true,
@@ -15,12 +14,12 @@ array (
     'link' => true,
     'label' => 'LBL_ATC_CLIENTS_ATC_ISSCAMPAIGNS_FROM_ATC_CLIENTS_TITLE',
     'id' => 'ATC_CLIENTS_ATC_ISSCAMPAIGNSATC_CLIENTS_IDA',
-    'width' => '10%',
+    'width' => '10',
     'default' => true,
   ),
   'ASSIGNED_USER_NAME' => 
   array (
-    'width' => '9%',
+    'width' => '9',
     'label' => 'LBL_ASSIGNED_TO_NAME',
     'module' => 'Employees',
     'id' => 'ASSIGNED_USER_ID',
@@ -28,9 +27,8 @@ array (
   ),
   'TEAM_NAME' => 
   array (
-    'width' => '9%',
+    'width' => '9',
     'label' => 'LBL_TEAM',
     'default' => false,
   ),
 );
-?>

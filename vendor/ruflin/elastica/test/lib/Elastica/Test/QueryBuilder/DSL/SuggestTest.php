@@ -1,25 +1,13 @@
 <?php
-
 namespace Elastica\Test\QueryBuilder\DSL;
 
 use Elastica\QueryBuilder\DSL;
 
-class SuggestTest extends \PHPUnit_Framework_TestCase
+class SuggestTest extends AbstractDSLTest
 {
     /**
-     * @var array (method name => arguments)
+     * @group unit
      */
-    private $suggesters = array(
-        'term' => array('name', 'field'),
-        'phrase' => array('name', 'field'),
-        'completion' => array(),
-        'context' => array(),
-    );
-
-    public function __construct()
-    {
-    }
-
     public function testType()
     {
         $suggestDSL = new DSL\Suggest();
@@ -28,26 +16,17 @@ class SuggestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(DSL::TYPE_SUGGEST, $suggestDSL->getType());
     }
 
-    public function testFilters()
+    /**
+     * @group unit
+     */
+    public function testInterface()
     {
         $suggestDSL = new DSL\Suggest();
 
-        foreach ($this->suggesters as $methodName => $arguments) {
-            $this->assertTrue(
-                method_exists($suggestDSL, $methodName),
-                'method for suggest "'.$methodName.'" not found'
-            );
+        $this->_assertImplemented($suggestDSL, 'completion', 'Elastica\Suggest\Completion', array('name', 'field'));
+        $this->_assertImplemented($suggestDSL, 'phrase', 'Elastica\Suggest\Phrase', array('name', 'field'));
+        $this->_assertImplemented($suggestDSL, 'term', 'Elastica\Suggest\Term', array('name', 'field'));
 
-            try {
-                $return = call_user_func_array(array($suggestDSL, $methodName), $arguments);
-                $this->assertInstanceOf('Elastica\Suggest\AbstractSuggest', $return);
-            } catch (\Exception $exception) {
-                $this->assertInstanceOf(
-                    'Elastica\Exception\NotImplementedException',
-                    $exception,
-                    'breaking change in suggest "'.$methodName.'" found: '.$exception->getMessage()
-                );
-            }
-        }
+        $this->_assertNotImplemented($suggestDSL, 'context', array());
     }
 }

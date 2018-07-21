@@ -26,6 +26,5 @@ $dictionary['INV_Invoices'] = array(
 );
 
 if (!class_exists('VardefManager')){
-    require_once 'include/SugarObjects/VardefManager.php';
 }
 VardefManager::createVardef('INV_Invoices','INV_Invoices', array('basic','team_security','assignable','taggable'));

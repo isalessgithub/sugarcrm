@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -18,10 +17,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Contributor(s): ______________________________________..
  ********************************************************************************/
 
-require_once('include/Dashlets/DashletGeneric.php');
 require_once('modules/INV_Invoices/INV_Invoices.php');
 
-class INV_InvoicesDashlet extends DashletGeneric { 
+class INV_InvoicesDashlet extends DashletGeneric {
     public function __construct($id, $def = null)
     {
 		global $current_user, $app_strings;
@@ -34,6 +32,6 @@ class INV_InvoicesDashlet extends DashletGeneric {
         $this->searchFields = $dashletData['INV_InvoicesDashlet']['searchFields'];
         $this->columns = $dashletData['INV_InvoicesDashlet']['columns'];
 
-        $this->seedBean = new INV_Invoices();        
+        $this->seedBean = new INV_Invoices();
     }
 }

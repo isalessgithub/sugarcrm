@@ -1,5 +1,5 @@
 <?php
- // created: 2018-07-19 20:01:50
+ // created: 2018-07-12 16:04:03
 $dictionary['INV_Invoices']['fields']['invoice_amount_paid_c']['labelValue']='Amount Paid';
 $dictionary['INV_Invoices']['fields']['invoice_amount_paid_c']['enforced']='';
 $dictionary['INV_Invoices']['fields']['invoice_amount_paid_c']['dependency']='';

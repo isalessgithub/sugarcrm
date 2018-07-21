@@ -1,5 +1,5 @@
 <?php
- // created: 2018-05-17 13:38:57
+ // created: 2018-05-08 15:26:49
 $layout_defs["Users"]["subpanel_setup"]['users_iss_company_project_assign_1'] = array (
   'order' => 100,
   'module' => 'ISS_Company_Project_Assign',

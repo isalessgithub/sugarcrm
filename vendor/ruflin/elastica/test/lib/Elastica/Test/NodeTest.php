@@ -1,14 +1,14 @@
 <?php
-
 namespace Elastica\Test;
 
-use Elastica\Client;
 use Elastica\Node;
 use Elastica\Test\Base as BaseTest;
 
 class NodeTest extends BaseTest
 {
-
+    /**
+     * @group functional
+     */
     public function testCreateNode()
     {
         $client = $this->_getClient();
@@ -19,6 +19,9 @@ class NodeTest extends BaseTest
         $this->assertInstanceOf('Elastica\Node', $node);
     }
 
+    /**
+     * @group functional
+     */
     public function testGetInfo()
     {
         $client = $this->_getClient();
@@ -32,6 +35,9 @@ class NodeTest extends BaseTest
         $this->assertInstanceOf('Elastica\Node\Info', $info);
     }
 
+    /**
+     * @group functional
+     */
     public function testGetStats()
     {
         $client = $this->_getClient();
@@ -45,12 +51,30 @@ class NodeTest extends BaseTest
         $this->assertInstanceOf('Elastica\Node\Stats', $stats);
     }
 
+    /**
+     * @group functional
+     */
     public function testGetName()
     {
-        $nodes = $this->_getClient()->getCluster()->getNodes();
-        $this->assertCount(2, $nodes);
+        $client = $this->_getClient();
+
+        $nodes = $client->getCluster()->getNodes();
+        // At least 1 instance must exist
+        $this->assertGreaterThan(0, $nodes);
+
+        $data = $client->request('/_nodes')->getData();
+        $rawNodes = $data['nodes'];
+
         foreach ($nodes as $node) {
-            $this->assertContains($node->getName(), array('Silver Fox', 'Skywalker'));
+            $this->assertEquals($rawNodes[$node->getId()]['name'], $node->getName());
         }
+    }
+
+    /**
+     * @group functional
+     */
+    public function testGetId()
+    {
+        $node = new Node('Elastica', $this->_getClient());
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Facet;
 
 use Elastica\Document;
@@ -13,6 +12,9 @@ use Elastica\Test\Base as BaseTest;
  */
 class StatisticalTest extends BaseTest
 {
+    /**
+     * @group functional
+     */
     public function testStatisticalWithSetField()
     {
         $client = $this->_getClient();
@@ -44,6 +46,9 @@ class StatisticalTest extends BaseTest
         $this->assertEquals(45, $facets['stats']['max']);
     }
 
+    /**
+     * @group functional
+     */
     public function testStatisticalWithSetFields()
     {
         $client = $this->_getClient();

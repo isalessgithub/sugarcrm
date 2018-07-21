@@ -1,5 +1,5 @@
 <?php
-// created: 2018-07-19 21:46:56
+// created: 2018-07-12 16:20:20
 $viewdefs['INV_Invoices']['base']['view']['subpanel-for-atc_isscampaigns-atc_isscampaigns_inv_invoices_1'] = array (
   'panels' => 
   array (

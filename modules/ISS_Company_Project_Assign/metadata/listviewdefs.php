@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -16,19 +15,19 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $module_name = 'ISS_Company_Project_Assign';
 $listViewDefs[$module_name] = array(
 	'NAME' => array(
-		'width' => '32', 
-		'label' => 'LBL_NAME', 
+		'width' => '32',
+		'label' => 'LBL_NAME',
 		'default' => true,
-        'link' => true),         
+        'link' => true),
 	'TEAM_NAME' => array(
-		'width' => '9', 
+		'width' => '9',
 		'label' => 'LBL_TEAM',
         'default' => false),
 	'ASSIGNED_USER_NAME' => array(
-		'width' => '9', 
+		'width' => '9',
 		'label' => 'LBL_ASSIGNED_TO_NAME',
 		'module' => 'Employees',
         'id' => 'ASSIGNED_USER_ID',
         'default' => true),
-	
+
 );

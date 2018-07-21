@@ -1,15 +1,15 @@
 <?php
 // created: 2018-05-17 13:46:27
 $viewdefs['ISS_Company_Project_Assign']['base']['view']['subpanel-for-tasks-tasks_iss_company_project_assign_1'] = array (
-  'panels' => 
+  'panels' =>
   array (
-    0 => 
+    0 =>
     array (
       'name' => 'panel_header',
       'label' => 'LBL_PANEL_1',
-      'fields' => 
+      'fields' =>
       array (
-        0 => 
+        0 =>
         array (
           'label' => 'LBL_NAME',
           'enabled' => true,
@@ -17,14 +17,14 @@ $viewdefs['ISS_Company_Project_Assign']['base']['view']['subpanel-for-tasks-task
           'name' => 'name',
           'link' => true,
         ),
-        1 => 
+        1 =>
         array (
           'name' => 'cp_assign_status_c',
           'label' => 'LBL_CP_ASSIGN_STATUS',
           'enabled' => true,
           'default' => true,
         ),
-        2 => 
+        2 =>
         array (
           'name' => 'users_iss_company_project_assign_1_name',
           'label' => 'LBL_USERS_ISS_COMPANY_PROJECT_ASSIGN_1_FROM_USERS_TITLE',
@@ -34,7 +34,7 @@ $viewdefs['ISS_Company_Project_Assign']['base']['view']['subpanel-for-tasks-task
           'sortable' => false,
           'default' => true,
         ),
-        3 => 
+        3 =>
         array (
           'name' => 'related_campaign_c',
           'label' => 'LBL_RELATED_CAMPAIGN',
@@ -44,7 +44,7 @@ $viewdefs['ISS_Company_Project_Assign']['base']['view']['subpanel-for-tasks-task
           'sortable' => false,
           'default' => true,
         ),
-        4 => 
+        4 =>
         array (
           'name' => 'booked_appt_c',
           'label' => 'LBL_BOOKED_APPT',
@@ -54,7 +54,7 @@ $viewdefs['ISS_Company_Project_Assign']['base']['view']['subpanel-for-tasks-task
           'sortable' => false,
           'default' => true,
         ),
-        5 => 
+        5 =>
         array (
           'name' => 'assigned_user_name',
           'label' => 'LBL_ASSIGNED_TO',
@@ -63,7 +63,7 @@ $viewdefs['ISS_Company_Project_Assign']['base']['view']['subpanel-for-tasks-task
           'link' => true,
           'default' => true,
         ),
-        6 => 
+        6 =>
         array (
           'name' => 'date_entered',
           'label' => 'LBL_DATE_ENTERED',
@@ -71,7 +71,7 @@ $viewdefs['ISS_Company_Project_Assign']['base']['view']['subpanel-for-tasks-task
           'readonly' => true,
           'default' => true,
         ),
-        7 => 
+        7 =>
         array (
           'name' => 'description',
           'label' => 'LBL_DESCRIPTION',
@@ -82,7 +82,7 @@ $viewdefs['ISS_Company_Project_Assign']['base']['view']['subpanel-for-tasks-task
       ),
     ),
   ),
-  'orderBy' => 
+  'orderBy' =>
   array (
     'field' => 'date_modified',
     'direction' => 'desc',

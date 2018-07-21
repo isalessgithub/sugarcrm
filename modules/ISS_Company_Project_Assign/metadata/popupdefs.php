@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -16,9 +15,9 @@ $_module_name = 'iss_company_project_assign';
 $popupMeta = array('moduleMain' => $module_name,
 						'varName' => $object_name,
 						'orderBy' => $_module_name.'.name',
-						'whereClauses' => 
-							array('name' => $_module_name . '.name', 
+						'whereClauses' =>
+							array('name' => $_module_name . '.name',
 								),
 						    'searchInputs'=> array($_module_name. '_number', 'name', 'priority','status'),
-							
+
 						);

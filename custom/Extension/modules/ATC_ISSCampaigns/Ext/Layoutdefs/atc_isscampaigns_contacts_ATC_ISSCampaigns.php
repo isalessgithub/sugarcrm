@@ -1,5 +1,6 @@
 <?php
  // created: 2013-08-06 15:00:00
+/*
 $layout_defs["ATC_ISSCampaigns"]["subpanel_setup"]['atc_isscampaigns_contacts'] = array (
   'order' => 100,
   'module' => 'Contacts',
@@ -21,3 +22,4 @@ $layout_defs["ATC_ISSCampaigns"]["subpanel_setup"]['atc_isscampaigns_contacts'] 
     ),
   ),
 );
+*/

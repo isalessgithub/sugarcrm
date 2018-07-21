@@ -1,5 +1,5 @@
 <?php
- // created: 2018-06-22 12:36:48
+ // created: 2018-06-18 16:04:38
 
 $app_list_strings['iv_industry_list']=array (
   'aerospace and defense' => 'Aerospace and Defense',
@@ -32,5 +32,8 @@ $app_list_strings['iv_industry_list']=array (
   'schools and education' => 'Schools and Education',
   'telecommunications' => 'Telecommunications',
   'transportation' => 'Transportation',
+  'banking' => 'Banking',
+  'not for profit' => 'Not for Profit',
+  'Other' => 'Other',
   '' => '',
 );

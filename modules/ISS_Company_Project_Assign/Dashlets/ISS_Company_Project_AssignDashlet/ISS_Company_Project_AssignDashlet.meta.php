@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -17,11 +16,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
- 
+
 global $app_strings;
 
 $dashletMeta['ISS_Company_Project_AssignDashlet'] = array('module'		=> 'ISS_Company_Project_Assign',
-										  'title'       => translate('LBL_HOMEPAGE_TITLE', 'ISS_Company_Project_Assign'), 
+										  'title'       => translate('LBL_HOMEPAGE_TITLE', 'ISS_Company_Project_Assign'),
                                           'description' => 'A customizable view into ISS_Company_Project_Assign',
                                           'icon'        => 'icon_ISS_Company_Project_Assign_32.gif',
                                           'category'    => 'Module Views');

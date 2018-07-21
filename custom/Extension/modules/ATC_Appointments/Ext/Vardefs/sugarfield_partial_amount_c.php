@@ -1,5 +1,5 @@
 <?php
- // created: 2018-05-17 13:08:37
+ // created: 2018-05-14 14:54:24
 $dictionary['ATC_Appointments']['fields']['partial_amount_c']['labelValue']='Partial Comp. Amount';
 $dictionary['ATC_Appointments']['fields']['partial_amount_c']['full_text_search']=array (
   'enabled' => '0',

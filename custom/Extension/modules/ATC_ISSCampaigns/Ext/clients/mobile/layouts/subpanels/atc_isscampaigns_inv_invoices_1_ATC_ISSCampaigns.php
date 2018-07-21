@@ -1,5 +1,5 @@
 <?php
-// created: 2018-07-19 21:41:03
+// created: 2018-07-12 16:07:06
 $viewdefs['ATC_ISSCampaigns']['mobile']['layout']['subpanels']['components'][] = array (
   'layout' => 'subpanel',
   'label' => 'LBL_ATC_ISSCAMPAIGNS_INV_INVOICES_1_FROM_INV_INVOICES_TITLE',

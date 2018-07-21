@@ -1,11 +1,12 @@
 <?php
- // created: 2018-06-22 12:36:49
+ // created: 2018-06-18 16:04:39
 
 $app_list_strings['iv_industry_list']=array (
   '' => '',
   'aerospace and defense' => 'Aerospace and Defense',
   'agriculture and forestry' => 'Agriculture and Forestry',
   'automotive' => 'Automotive',
+  'banking' => 'Banking',
   'banks' => 'Banks',
   'chemicals' => 'Chemicals',
   'civic non profit and membership groups' => 'Civic, Non-Profit and Membership Groups',
@@ -27,6 +28,8 @@ $app_list_strings['iv_industry_list']=array (
   'leisure sports and recreation' => 'Leisure, Sports and Recreation',
   'media' => 'Media',
   'mining and metals' => 'Mining and Metals',
+  'not for profit' => 'Not for Profit',
+  'Other' => 'Other',
   'pharmaceuticals and biotechnology' => 'Pharmaceuticals and Biotechnology',
   'real estate' => 'Real Estate',
   'retail' => 'Retail',

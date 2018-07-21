@@ -1,11 +1,11 @@
 <?php
-// created: 2018-05-17 13:37:04
+// created: 2018-05-07 12:07:26
 $dictionary["tasks_iss_company_project_assign_1"] = array (
   'true_relationship_type' => 'many-to-many',
   'from_studio' => true,
-  'relationships' => 
+  'relationships' =>
   array (
-    'tasks_iss_company_project_assign_1' => 
+    'tasks_iss_company_project_assign_1' =>
     array (
       'lhs_module' => 'Tasks',
       'lhs_table' => 'tasks',
@@ -20,71 +20,71 @@ $dictionary["tasks_iss_company_project_assign_1"] = array (
     ),
   ),
   'table' => 'tasks_iss_company_project_assign_1_c',
-  'fields' => 
+  'fields' =>
   array (
-    'id' => 
+    'id' =>
     array (
       'name' => 'id',
       'type' => 'id',
     ),
-    'date_modified' => 
+    'date_modified' =>
     array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    'deleted' => 
+    'deleted' =>
     array (
       'name' => 'deleted',
       'type' => 'bool',
       'default' => 0,
     ),
-    'tasks_iss_company_project_assign_1tasks_ida' => 
+    'tasks_iss_company_project_assign_1tasks_ida' =>
     array (
       'name' => 'tasks_iss_company_project_assign_1tasks_ida',
       'type' => 'id',
     ),
-    'tasks_iss_company_project_assign_1iss_company_project_assign_idb' => 
+    'tasks_iss_company_project_assign_1iss_company_project_assign_idb' =>
     array (
       'name' => 'tasks_iss_company_project_assign_1iss_company_project_assign_idb',
       'type' => 'id',
     ),
   ),
-  'indices' => 
+  'indices' =>
   array (
-    0 => 
+    0 =>
     array (
       'name' => 'idx_tasks_iss_company_project_assign_1_pk',
       'type' => 'primary',
-      'fields' => 
+      'fields' =>
       array (
         0 => 'id',
       ),
     ),
-    1 => 
+    1 =>
     array (
       'name' => 'idx_tasks_iss_company_project_assign_1_ida1_deleted',
       'type' => 'index',
-      'fields' => 
+      'fields' =>
       array (
         0 => 'tasks_iss_company_project_assign_1tasks_ida',
         1 => 'deleted',
       ),
     ),
-    2 => 
+    2 =>
     array (
       'name' => 'idx_tasks_iss_company_project_assign_1_idb2_deleted',
       'type' => 'index',
-      'fields' => 
+      'fields' =>
       array (
         0 => 'tasks_iss_company_project_assign_1iss_company_project_assign_idb',
         1 => 'deleted',
       ),
     ),
-    3 => 
+    3 =>
     array (
       'name' => 'tasks_iss_company_project_assign_1_alt',
       'type' => 'alternate_key',
-      'fields' => 
+      'fields' =>
       array (
         0 => 'tasks_iss_company_project_assign_1tasks_ida',
         1 => 'tasks_iss_company_project_assign_1iss_company_project_assign_idb',

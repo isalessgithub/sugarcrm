@@ -1,10 +1,8 @@
 <?php
- // created: 2018-01-09 19:24:50
+ // created: 2018-05-02 12:55:31
 
 $app_list_strings['project_status_list']=array (
   'open' => 'Open',
-  'future_opp' => 'Future Opportunity',
-  'assigned' => 'Assigned',
-  'completed' => 'Completed',
   'closed' => 'Closed',
+  'invalid' => 'Invalid',
 );

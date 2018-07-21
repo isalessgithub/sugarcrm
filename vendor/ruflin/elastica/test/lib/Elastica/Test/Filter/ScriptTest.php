@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Filter;
 
 use Elastica\Filter\Script as ScriptFilter;
@@ -8,6 +7,9 @@ use Elastica\Test\Base as BaseTest;
 
 class ScriptTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testToArray()
     {
         $string = '_score * 2.0';
@@ -25,6 +27,9 @@ class ScriptTest extends BaseTest
         $this->assertEquals($expected, $array);
     }
 
+    /**
+     * @group unit
+     */
     public function testSetScript()
     {
         $string = '_score * 2.0';

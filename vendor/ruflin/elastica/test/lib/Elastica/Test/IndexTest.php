@@ -1,13 +1,12 @@
 <?php
-
 namespace Elastica\Test;
 
-use Elastica\Client;
 use Elastica\Document;
 use Elastica\Exception\ResponseException;
 use Elastica\Index;
 use Elastica\Query\HasChild;
 use Elastica\Query\QueryString;
+use Elastica\Query\SimpleQueryString;
 use Elastica\Query\Term;
 use Elastica\Status;
 use Elastica\Test\Base as BaseTest;
@@ -16,6 +15,9 @@ use Elastica\Type\Mapping;
 
 class IndexTest extends BaseTest
 {
+    /**
+     * @group functional
+     */
     public function testMapping()
     {
         $index = $this->_createIndex();
@@ -41,6 +43,9 @@ class IndexTest extends BaseTest
         $result = $type->search('hanswurst');
     }
 
+    /**
+     * @group functional
+     */
     public function testGetMappingAlias()
     {
         $index = $this->_createIndex();
@@ -70,6 +75,9 @@ class IndexTest extends BaseTest
         $this->assertEquals($mapping1, $mapping2);
     }
 
+    /**
+     * @group functional
+     */
     public function testParent()
     {
         $index = $this->_createIndex();
@@ -107,9 +115,12 @@ class IndexTest extends BaseTest
         $this->assertEquals(array('title' => 'Foo bar'), $resultSet->current()->getData());
     }
 
+    /**
+     * @group functional
+     */
     public function testAddPdfFile()
     {
-        $this->_checkAttachmentsPlugin();
+        $this->_checkPlugin('mapper-attachments');
         $indexMapping = array('file' => array('type' => 'attachment', 'store' => 'no'), 'text' => array('type' => 'string', 'store' => 'no'));
 
         $indexParams = array('index' => array('number_of_shards' => 1, 'number_of_replicas' => 0));
@@ -146,9 +157,12 @@ class IndexTest extends BaseTest
         $this->assertEquals(0, $resultSet->count());
     }
 
+    /**
+     * @group functional
+     */
     public function testAddPdfFileContent()
     {
-        $this->_checkAttachmentsPlugin();
+        $this->_checkPlugin('mapper-attachments');
         $indexMapping = array('file' => array('type' => 'attachment', 'store' => 'no'), 'text' => array('type' => 'string', 'store' => 'no'));
 
         $indexParams = array('index' => array('number_of_shards' => 1, 'number_of_replicas' => 0));
@@ -185,9 +199,12 @@ class IndexTest extends BaseTest
         $this->assertEquals(0, $resultSet->count());
     }
 
+    /**
+     * @group functional
+     */
     public function testAddWordxFile()
     {
-        $this->_checkAttachmentsPlugin();
+        $this->_checkPlugin('mapper-attachments');
         $indexMapping = array('file' => array('type' => 'attachment'), 'text' => array('type' => 'string', 'store' => 'no'));
 
         $indexParams = array('index' => array('number_of_shards' => 1, 'number_of_replicas' => 0));
@@ -203,25 +220,32 @@ class IndexTest extends BaseTest
         $doc1->set('text', 'basel world');
         $type->addDocument($doc1);
 
+        $index->optimize();
+        $index->refresh();
+
         $doc2 = new Document(2);
         $doc2->set('text', 'running in basel');
         $type->addDocument($doc2);
 
         $index->optimize();
-
-        $resultSet = $type->search('xodoa');
-        $this->assertEquals(1, $resultSet->count());
+        $index->refresh();
 
         $resultSet = $type->search('basel');
         $this->assertEquals(2, $resultSet->count());
 
         $resultSet = $type->search('ruflin');
         $this->assertEquals(0, $resultSet->count());
+
+        $resultSet = $type->search('Xodoa');
+        $this->assertEquals(1, $resultSet->count());
     }
 
+    /**
+     * @group functional
+     */
     public function testExcludeFileSource()
     {
-        $this->_checkAttachmentsPlugin();
+        $this->_checkPlugin('mapper-attachments');
         $indexMapping = array('file' => array('type' => 'attachment', 'store' => 'yes'), 'text' => array('type' => 'string', 'store' => 'yes'),
             'title' => array('type' => 'string', 'store' => 'yes'),);
 
@@ -258,6 +282,7 @@ class IndexTest extends BaseTest
     }
 
     /**
+     * @group functional
      * @expectedException \Elastica\Exception\ResponseException
      */
     public function testAddRemoveAlias()
@@ -296,6 +321,9 @@ class IndexTest extends BaseTest
         $client->getIndex($aliasName)->getType($typeName)->search('ruflin');
     }
 
+    /**
+     * @group functional
+     */
     public function testCount()
     {
         $index = $this->_createIndex();
@@ -320,6 +348,123 @@ class IndexTest extends BaseTest
         $this->assertEquals(1, $index->count($query));
     }
 
+    /**
+     * @group functional
+     */
+    public function testDeleteByQueryWithQueryString()
+    {
+        $index = $this->_createIndex();
+        $type1 = new Type($index, 'test1');
+        $type1->addDocument(new Document(1, array('name' => 'ruflin nicolas')));
+        $type1->addDocument(new Document(2, array('name' => 'ruflin')));
+        $type2 = new Type($index, 'test2');
+        $type2->addDocument(new Document(1, array('name' => 'ruflin nicolas')));
+        $type2->addDocument(new Document(2, array('name' => 'ruflin')));
+        $index->refresh();
+
+        $response = $index->search('ruflin*');
+        $this->assertEquals(4, $response->count());
+
+        $response = $index->search('nicolas');
+        $this->assertEquals(2, $response->count());
+
+        // Delete first document
+        $response = $index->deleteByQuery('nicolas');
+        $this->assertTrue($response->isOk());
+
+        $index->refresh();
+
+        // Makes sure, document is deleted
+        $response = $index->search('ruflin*');
+        $this->assertEquals(2, $response->count());
+
+        $response = $index->search('nicolas');
+        $this->assertEquals(0, $response->count());
+    }
+
+    /**
+     * @group functional
+     */
+    public function testDeleteByQueryWithQuery()
+    {
+        $index = $this->_createIndex();
+        $type1 = new Type($index, 'test1');
+        $type1->addDocument(new Document(1, array('name' => 'ruflin nicolas')));
+        $type1->addDocument(new Document(2, array('name' => 'ruflin')));
+        $type2 = new Type($index, 'test2');
+        $type2->addDocument(new Document(1, array('name' => 'ruflin nicolas')));
+        $type2->addDocument(new Document(2, array('name' => 'ruflin')));
+        $index->refresh();
+
+        $response = $index->search('ruflin*');
+        $this->assertEquals(4, $response->count());
+
+        $response = $index->search('nicolas');
+        $this->assertEquals(2, $response->count());
+
+        // Delete first document
+        $response = $index->deleteByQuery(new SimpleQueryString('nicolas'));
+        $this->assertTrue($response->isOk());
+
+        $index->refresh();
+
+        // Makes sure, document is deleted
+        $response = $index->search('ruflin*');
+        $this->assertEquals(2, $response->count());
+
+        $response = $index->search('nicolas');
+        $this->assertEquals(0, $response->count());
+    }
+
+    /**
+     * @group functional
+     */
+    public function testDeleteByQueryWithQueryAndOptions()
+    {
+        $index = $this->_createIndex(null, true, 2);
+        $type1 = new Type($index, 'test1');
+        $type1->addDocument(new Document(1, array('name' => 'ruflin nicolas')));
+        $type1->addDocument(new Document(2, array('name' => 'ruflin')));
+        $type2 = new Type($index, 'test2');
+        $type2->addDocument(new Document(1, array('name' => 'ruflin nicolas')));
+        $type2->addDocument(new Document(2, array('name' => 'ruflin')));
+        $index->refresh();
+
+        $response = $index->search('ruflin*');
+        $this->assertEquals(4, $response->count());
+
+        $response = $index->search('nicolas');
+        $this->assertEquals(2, $response->count());
+
+        // Route to the wrong document id; should not delete
+        $response = $index->deleteByQuery(new SimpleQueryString('nicolas'), array('routing' => '2'));
+        $this->assertTrue($response->isOk());
+
+        $index->refresh();
+
+        $response = $index->search('ruflin*');
+        $this->assertEquals(4, $response->count());
+
+        $response = $index->search('nicolas');
+        $this->assertEquals(2, $response->count());
+
+        // Delete first document
+        $response = $index->deleteByQuery(new SimpleQueryString('nicolas'), array('routing' => '1'));
+        $this->assertTrue($response->isOk());
+
+        $index->refresh();
+
+        // Makes sure, document is deleted
+        $response = $index->search('ruflin*');
+        $this->assertEquals(2, $response->count());
+
+        $response = $index->search('nicolas');
+        $this->assertEquals(0, $response->count());
+    }
+
+    /**
+     * @group functional
+     */
     public function testDeleteIndexDeleteAlias()
     {
         $indexName = 'test';
@@ -343,6 +488,9 @@ class IndexTest extends BaseTest
         $this->assertFalse($status->aliasExists($aliasName));
     }
 
+    /**
+     * @group functional
+     */
     public function testAddAliasTwoIndices()
     {
         $indexName1 = 'test1';
@@ -378,6 +526,9 @@ class IndexTest extends BaseTest
         $this->assertTrue($index2->getStatus()->hasAlias($aliasName));
     }
 
+    /**
+     * @group functional
+     */
     public function testReplaceAlias()
     {
         $indexName1 = 'test1';
@@ -408,6 +559,9 @@ class IndexTest extends BaseTest
         $this->assertTrue($index2->getStatus()->hasAlias($aliasName));
     }
 
+    /**
+     * @group functional
+     */
     public function testAddDocumentVersion()
     {
         $client = $this->_getClient();
@@ -427,6 +581,9 @@ class IndexTest extends BaseTest
         $this->assertEquals(2, $data['_version']);
     }
 
+    /**
+     * @group functional
+     */
     public function testClearCache()
     {
         $index = $this->_createIndex();
@@ -434,6 +591,9 @@ class IndexTest extends BaseTest
         $this->assertFalse($response->hasError());
     }
 
+    /**
+     * @group functional
+     */
     public function testFlush()
     {
         $index = $this->_createIndex();
@@ -441,6 +601,9 @@ class IndexTest extends BaseTest
         $this->assertFalse($response->hasError());
     }
 
+    /**
+     * @group functional
+     */
     public function testExists()
     {
         $index = $this->_createIndex();
@@ -453,11 +616,13 @@ class IndexTest extends BaseTest
     }
 
     /**
-     * Test $index->delete() return value for unknown index
+     * Test $index->delete() return value for unknown index.
      *
      * Tests if deleting an index that does not exist in Elasticsearch,
      * correctly returns a boolean true from the hasError() method of
      * the \Elastica\Response object
+     *
+     * @group functional
      */
     public function testDeleteMissingIndexHasError()
     {
@@ -476,7 +641,9 @@ class IndexTest extends BaseTest
     }
 
     /**
-     * Tests to see if the test type mapping exists when calling $index->getMapping()
+     * Tests to see if the test type mapping exists when calling $index->getMapping().
+     *
+     * @group functional
      */
     public function testIndexGetMapping()
     {
@@ -499,6 +666,8 @@ class IndexTest extends BaseTest
 
     /**
      * Tests to see if the index is empty when there are no types set.
+     *
+     * @group functional
      */
     public function testEmptyIndexGetMapping()
     {
@@ -509,7 +678,9 @@ class IndexTest extends BaseTest
     }
 
     /**
-     * Test to see if search Default Limit works
+     * Test to see if search Default Limit works.
+     *
+     * @group functional
      */
     public function testLimitDefaultIndex()
     {
@@ -546,6 +717,8 @@ class IndexTest extends BaseTest
 
     /**
      * @expectedException \Elastica\Exception\InvalidException
+     *
+     * @group functional
      */
     public function testCreateArray()
     {
@@ -574,6 +747,9 @@ class IndexTest extends BaseTest
         $this->assertTrue($status->indexExists($indexName));
     }
 
+    /**
+     * @group functional
+     */
     public function testCreateSearch()
     {
         $client = $this->_getClient();
@@ -605,6 +781,9 @@ class IndexTest extends BaseTest
         $this->assertFalse($search->hasType($type));
     }
 
+    /**
+     * @group functional
+     */
     public function testSearch()
     {
         $index = $this->_createIndex();
@@ -634,6 +813,9 @@ class IndexTest extends BaseTest
         $this->assertEquals(3, $count);
     }
 
+    /**
+     * @group functional
+     */
     public function testOptimize()
     {
         $index = $this->_createIndex();
@@ -661,6 +843,9 @@ class IndexTest extends BaseTest
         $this->assertEquals(0, $stats['_all']['primaries']['docs']['deleted']);
     }
 
+    /**
+     * @group functional
+     */
     public function testAnalyze()
     {
         $index = $this->_createIndex();
@@ -682,6 +867,7 @@ class IndexTest extends BaseTest
     }
 
     /**
+     * @group unit
      * @expectedException \Elastica\Exception\InvalidException
      */
     public function testThrowExceptionIfNotScalar()
@@ -690,23 +876,15 @@ class IndexTest extends BaseTest
         $client->getIndex(new \stdClass());
     }
 
+    /**
+     * @group unit
+     */
     public function testConvertScalarsToString()
     {
         $client = $this->_getClient();
-        $index  = $client->getIndex(1);
+        $index = $client->getIndex(1);
 
         $this->assertEquals('1', $index->getName());
         $this->assertInternalType('string', $index->getName());
-    }
-
-    /**
-     * Check for the presence of the mapper-attachments plugin and skip the current test if it is not found.
-     */
-    protected function _checkAttachmentsPlugin()
-    {
-        $nodes = $this->_getClient()->getCluster()->getNodes();
-        if (!$nodes[0]->getInfo()->hasPlugin('mapper-attachments')) {
-            $this->markTestSkipped('mapper-attachments plugin not installed');
-        }
     }
 }

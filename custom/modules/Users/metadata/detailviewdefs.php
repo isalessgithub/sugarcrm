@@ -37,6 +37,11 @@ array (
           'newTab' => false,
           'panelDefault' => 'expanded',
         ),
+        'LBL_EDITVIEW_PANEL1' => 
+        array (
+          'newTab' => false,
+          'panelDefault' => 'expanded',
+        ),
       ),
       'syncDetailEditViews' => true,
     ),
@@ -76,7 +81,11 @@ array (
         ),
         1 => 
         array (
-          0 => 'title',
+          0 => 
+          array (
+            'name' => 'iss_title_c',
+            'label' => 'LBL_ISS_TITLE',
+          ),
           1 => 
           array (
             'name' => 'bu_team_c',
@@ -85,35 +94,45 @@ array (
         ),
         2 => 
         array (
-          0 => 'employee_status',
-          1 => 'show_on_employees',
+          0 => 
+          array (
+            'name' => 'direct_report_c',
+            'studio' => 'visible',
+            'label' => 'LBL_DIRECT_REPORT',
+          ),
+          1 => 'department',
         ),
         3 => 
         array (
-          0 => 'reports_to_name',
+          0 => 'title',
           1 => '',
         ),
         4 => 
         array (
+          0 => 'employee_status',
+          1 => 'show_on_employees',
+        ),
+        5 => 
+        array (
           0 => 'phone_work',
           1 => 'phone_mobile',
         ),
-        5 => 
+        6 => 
         array (
           0 => 'phone_other',
           1 => 'phone_home',
         ),
-        6 => 
+        7 => 
         array (
           0 => 'address_street',
           1 => 'address_city',
         ),
-        7 => 
+        8 => 
         array (
           0 => 'address_state',
           1 => 'address_postalcode',
         ),
-        8 => 
+        9 => 
         array (
           0 => 
           array (
@@ -134,9 +153,21 @@ array (
             'label' => 'LBL_CREATED_BY_NAME',
           ),
         ),
-        9 => 
+        10 => 
         array (
           0 => 'description',
+        ),
+      ),
+      'lbl_editview_panel1' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            'name' => 'cpa_count_c',
+            'label' => 'LBL_CPA_COUNT',
+          ),
+          1 => '',
         ),
       ),
     ),

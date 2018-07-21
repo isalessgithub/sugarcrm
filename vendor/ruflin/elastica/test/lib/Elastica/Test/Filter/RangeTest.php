@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Filter;
 
 use Elastica\Filter\Range;
@@ -7,6 +6,9 @@ use Elastica\Test\Base as BaseTest;
 
 class RangeTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testAddField()
     {
         $rangeFilter = new Range();
@@ -14,6 +16,9 @@ class RangeTest extends BaseTest
         $this->assertInstanceOf('Elastica\Filter\Range', $returnValue);
     }
 
+    /**
+     * @group unit
+     */
     public function testToArray()
     {
         $field = 'field_name';
@@ -25,6 +30,9 @@ class RangeTest extends BaseTest
         $this->assertEquals($expectedArray, $filter->toArray());
     }
 
+    /**
+     * @group unit
+     */
     public function testSetExecution()
     {
         $field = 'field_name';
@@ -39,9 +47,12 @@ class RangeTest extends BaseTest
     }
 
     /**
-     * Tests that parent fields are not overwritten by the toArray method
+     * Tests that parent fields are not overwritten by the toArray method.
+     *
+     * @group unit
      */
-    public function testSetCachedNotOverwritten() {
+    public function testSetCachedNotOverwritten()
+    {
         $filter = new Range('field_name', array());
         $filter->setCached(true);
         $array = $filter->toArray();

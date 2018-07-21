@@ -1,5 +1,5 @@
 <?php
- // created: 2018-07-19 21:44:56
+ // created: 2018-07-12 15:29:53
 $dictionary['INV_Invoices']['fields']['name']['len']='255';
 $dictionary['INV_Invoices']['fields']['name']['audited']=true;
 $dictionary['INV_Invoices']['fields']['name']['massupdate']=false;

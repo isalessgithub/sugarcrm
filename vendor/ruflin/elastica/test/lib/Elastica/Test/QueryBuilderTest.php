@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test;
 
 use Elastica\Exception\QueryBuilderException;
@@ -9,6 +8,9 @@ use Elastica\Suggest;
 
 class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @group unit
+     */
     public function testCustomDSL()
     {
         $qb = new QueryBuilder();
@@ -29,6 +31,9 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('DSL "invalid" not supported', $exceptionMessage);
     }
 
+    /**
+     * @group unit
+     */
     public function testFacade()
     {
         $qb = new QueryBuilder();
@@ -40,6 +45,9 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Elastica\Suggest\AbstractSuggest', $qb->suggest()->term('name', 'field'));
     }
 
+    /**
+     * @group unit
+     */
     public function testFacadeException()
     {
         $qb = new QueryBuilder(new QueryBuilder\Version\Version100());

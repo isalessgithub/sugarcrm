@@ -28,3 +28,4 @@ $mod_strings['LBL_ACTSAS'] = 'Account';
 $mod_strings['LBL_DO_NOT_SHOW'] = 'Do not show in Ambition';
 $mod_strings['LBL_PARTIAL_COMP'] = 'Partial Compensation';
 $mod_strings['LBL_PARTIAL_AMOUNT'] = 'Partial Comp. Amount';
+$mod_strings['LBL_APPT_BU'] = 'Appt BU';

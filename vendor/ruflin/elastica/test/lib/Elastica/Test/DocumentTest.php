@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test;
 
 use Elastica\Document;
@@ -10,6 +9,9 @@ use Elastica\Type;
 
 class DocumentTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testAddFile()
     {
         $fileName = '/dev/null';
@@ -21,6 +23,9 @@ class DocumentTest extends BaseTest
         $this->assertInstanceOf('Elastica\Document', $returnValue);
     }
 
+    /**
+     * @group unit
+     */
     public function testAddGeoPoint()
     {
         $doc = new Document();
@@ -28,6 +33,9 @@ class DocumentTest extends BaseTest
         $this->assertInstanceOf('Elastica\Document', $returnValue);
     }
 
+    /**
+     * @group unit
+     */
     public function testSetData()
     {
         $doc = new Document();
@@ -35,6 +43,9 @@ class DocumentTest extends BaseTest
         $this->assertInstanceOf('Elastica\Document', $returnValue);
     }
 
+    /**
+     * @group unit
+     */
     public function testToArray()
     {
         $id = 17;
@@ -48,6 +59,9 @@ class DocumentTest extends BaseTest
         $this->assertEquals($result, $doc->toArray());
     }
 
+    /**
+     * @group unit
+     */
     public function testSetType()
     {
         $document = new Document();
@@ -67,6 +81,9 @@ class DocumentTest extends BaseTest
         $this->assertEquals('type', $document->getType());
     }
 
+    /**
+     * @group unit
+     */
     public function testSetIndex()
     {
         $document = new Document();
@@ -84,6 +101,9 @@ class DocumentTest extends BaseTest
         $this->assertEquals('type2', $document->getType());
     }
 
+    /**
+     * @group unit
+     */
     public function testHasId()
     {
         $document = new Document();
@@ -96,6 +116,9 @@ class DocumentTest extends BaseTest
         $this->assertTrue($document->hasId());
     }
 
+    /**
+     * @group unit
+     */
     public function testGetOptions()
     {
         $document = new Document();
@@ -133,6 +156,9 @@ class DocumentTest extends BaseTest
         $this->assertArrayNotHasKey('parent', $options);
     }
 
+    /**
+     * @group unit
+     */
     public function testGetSetHasRemove()
     {
         $document = new Document(1, array('field1' => 'value1', 'field2' => 'value2', 'field3' => 'value3', 'field4' => null));
@@ -184,6 +210,9 @@ class DocumentTest extends BaseTest
         $this->assertNotEquals($data, $newData);
     }
 
+    /**
+     * @group unit
+     */
     public function testDataPropertiesOverloading()
     {
         $document = new Document(1, array('field1' => 'value1', 'field2' => 'value2', 'field3' => 'value3', 'field4' => null));
@@ -233,6 +262,9 @@ class DocumentTest extends BaseTest
         $this->assertNotEquals($data, $newData);
     }
 
+    /**
+     * @group unit
+     */
     public function testSetTtl()
     {
         $document = new Document();
@@ -253,6 +285,9 @@ class DocumentTest extends BaseTest
         $this->assertEquals('1d', $document->getTtl());
     }
 
+    /**
+     * @group unit
+     */
     public function testSerializedData()
     {
         $data = '{"user":"rolf"}';
@@ -282,6 +317,9 @@ class DocumentTest extends BaseTest
         }
     }
 
+    /**
+     * @group unit
+     */
     public function testUpsert()
     {
         $document = new Document();
@@ -297,6 +335,9 @@ class DocumentTest extends BaseTest
         $this->assertSame($upsert, $document->getUpsert());
     }
 
+    /**
+     * @group unit
+     */
     public function testDocAsUpsert()
     {
         $document = new Document();

@@ -1,12 +1,15 @@
 <?php
-
 namespace Elastica\Test\QueryBuilder;
 
 use Elastica\QueryBuilder\DSL;
 use Elastica\QueryBuilder\Version;
+use Elastica\Test\Base as BaseTest;
 
-class VersionTest extends \PHPUnit_Framework_TestCase
+class VersionTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testVersions()
     {
         $dsl = array(
@@ -23,6 +26,8 @@ class VersionTest extends \PHPUnit_Framework_TestCase
             new Version\Version120(),
             new Version\Version130(),
             new Version\Version140(),
+            new Version\Version150(),
+            new Version\Latest(),
         );
 
         foreach ($versions as $version) {

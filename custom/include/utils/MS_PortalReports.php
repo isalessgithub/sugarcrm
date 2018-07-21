@@ -33,7 +33,7 @@ $GLOBALS['log']->fatal("1");
 //		$GLOBALS['log']->fatal($index . " - " .$email);
 	    $cp_user_identity = new EmailIdentity($email);
 	    $phpMailer->addRecipientsTo(array($cp_user_identity));
-	}  
+	}
 
     // introduce email recipient (portal user)
     //$cp_user_identity = new EmailIdentity($report['configuration']['email_address']);
@@ -196,7 +196,7 @@ $GLOBALS['log']->fatal("x");
 
         // build query
         $query = "
-                 SELECT 
+                 SELECT
                     SUM(CASE WHEN atc_appointments.date_entered >= '" . $last_7 . "' THEN 1 ELSE 0 END) AS appointments_last_week,
                     SUM(CASE WHEN appointment_date >= '" . $last_7 . "' and (appointment_status='Attended' OR appointment_status = 'Attended_Policy') THEN 1 ELSE 0 END) AS attended_last_week,
                     SUM(CASE WHEN appointment_status = 'Reschedule' THEN 1 ELSE 0 END) AS num_rescheduled,
@@ -207,7 +207,7 @@ $GLOBALS['log']->fatal("x");
                     SUM(CASE WHEN appointment_status IN ('Attended','Attended_Policy','Cancelled','Accepted','Reschedule','Confirmed') THEN 1 ELSE 0 END) AS num_appointments,
                     SUM(CASE WHEN appointment_status = 'Attended_Policy' THEN 1 ELSE 0 END) AS attended_policy,
                     camp.name AS CampName
-                 FROM atc_appointments 
+                 FROM atc_appointments
                     INNER JOIN atc_isscampaigns_atc_appointments_c ca ON ca.atc_isscampaigns_atc_appointmentsatc_appointments_idb = atc_appointments.id
                     INNER JOIN atc_isscampaigns camp ON camp.id = ca.atc_isscampaigns_atc_appointmentsatc_isscampaigns_ida
                     LEFT JOIN prospectlists_atc_appointments_1_c ta ON ta.prospectlists_atc_appointments_1atc_appointments_idb = atc_appointments.id
@@ -519,8 +519,8 @@ $GLOBALS['log']->fatal("x");
 					<td id="layout-row-padding305" valign="top" style="background-color: #ffffff; padding: 26px;">
 						<table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size: 13px; min-width: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 							<tr>
-								<td id="text_div248" class="td_text td_block" valign="top" align="left" style="line-height: 130%; color: inherit; font-size: 12px; font-weight: inherit; line-height: 1.3; text-decoration: inherit; font-family: Arial; mso-line-height-rule: exactly;"> 
-									<div style="line-height:130%; margin: 0; outline: none; padding: 0; color: #0b3861; mso-line-height-rule: exactly; line-height: 1.3;" data-line-height="1.3"> 
+								<td id="text_div248" class="td_text td_block" valign="top" align="left" style="line-height: 130%; color: inherit; font-size: 12px; font-weight: inherit; line-height: 1.3; text-decoration: inherit; font-family: Arial; mso-line-height-rule: exactly;">
+									<div style="line-height:130%; margin: 0; outline: none; padding: 0; color: #0b3861; mso-line-height-rule: exactly; line-height: 1.3;" data-line-height="1.3">
 									<div style="margin: 0; outline: none; padding: 0; text-align: center; color: #0b3861;">
 										<span style="color: #0b3861; font-size: 23px; font-weight: bold; line-height: inherit; text-decoration: inherit;" class="">Summary <br>
 										</span>
@@ -558,15 +558,15 @@ $GLOBALS['log']->fatal("x");
                     <tr>
                         <td style='border: 1px solid black; padding: 5px;'>New appointments last week:</td>
                         <td style='border: 1px solid black; padding-right:5px;  background-color: #FFF1CE; text-align: right; width: 20%;'>{$campaign_data['last_week']}</td>
-                    </tr>  
+                    </tr>
                     <tr>
                         <td style='border: 1px solid black; padding: 5px;'>Appointments attended last week:</td>
                         <td style='border: 1px solid black; padding-right:5px; background-color: #FFF1CE; text-align: right;'>{$campaign_data['attended_last_week']}</td>
-                    </tr>   
+                    </tr>
                     <tr>
                         <td style='border: 1px solid black; padding: 5px;'>Appointments to reschedule:</td>
                         <td style='border: 1px solid black; padding-right:5px; background-color: #FFF1CE; text-align: right;'>{$campaign_data['to_reschedule']}</td>
-                    </tr>  
+                    </tr>
                     <tr>
                         <td style='border: 1px solid black; padding: 5px;'>Total appointments generated:</td>
                         <td style='border: 1px solid black; padding-right:5px; background-color: #FFF1CE; text-align: right;'>{$campaign_data['total']}</td>

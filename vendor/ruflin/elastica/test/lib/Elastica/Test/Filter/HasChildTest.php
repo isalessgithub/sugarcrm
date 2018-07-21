@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Filter;
 
 use Elastica\Document;
@@ -9,6 +8,9 @@ use Elastica\Test\Base as BaseTest;
 
 class HasChildTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testToArray()
     {
         $q = new MatchAll();
@@ -27,6 +29,9 @@ class HasChildTest extends BaseTest
         $this->assertEquals($expectedArray, $filter->toArray());
     }
 
+    /**
+     * @group functional
+     */
     public function testSetType()
     {
         $index = $this->prepareSearchData();
@@ -49,6 +54,9 @@ class HasChildTest extends BaseTest
         $this->assertInstanceOf('Elastica\Filter\HasChild', $returnValue);
     }
 
+    /**
+     * @group unit
+     */
     public function testSetMinimumChildrenCount()
     {
         $query = new MatchAll();
@@ -61,6 +69,9 @@ class HasChildTest extends BaseTest
         $this->assertInstanceOf('Elastica\Filter\HasChild', $returnValue);
     }
 
+    /**
+     * @group unit
+     */
     public function testSetMaximumChildrenCount()
     {
         $query = new MatchAll();
@@ -73,6 +84,9 @@ class HasChildTest extends BaseTest
         $this->assertInstanceOf('Elastica\Filter\HasChild', $returnValue);
     }
 
+    /**
+     * @group unit
+     */
     public function testFilterInsideHasChild()
     {
         $f = new \Elastica\Filter\MatchAll();
@@ -91,6 +105,9 @@ class HasChildTest extends BaseTest
         $this->assertEquals($expectedArray, $filter->toArray());
     }
 
+    /**
+     * @group functional
+     */
     public function testFilterInsideHasChildSearch()
     {
         $index = $this->prepareSearchData();
@@ -111,6 +128,9 @@ class HasChildTest extends BaseTest
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * @group functional
+     */
     public function testQueryInsideHasChildSearch()
     {
         $index = $this->prepareSearchData();
@@ -131,6 +151,9 @@ class HasChildTest extends BaseTest
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * @group functional
+     */
     public function testTypeInsideHasChildSearch()
     {
         $index = $this->prepareSearchData();

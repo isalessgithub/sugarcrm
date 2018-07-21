@@ -44,6 +44,8 @@ function callHistory($record){
 function noteHistory($record){
     global $db;
 
+	//global $timedate;
+	//$GLOBALS['log']->fatal($timedate->getInstance->userTimezone());
     // Return 10 most recent notes
     $note_sql = "SELECT notes.name AS 'NAME', CONVERT_TZ(notes.date_entered,'GMT','US/Eastern') AS Create_Date, tl.name AS 'target_list_name' FROM notes
 INNER JOIN prospectlists_notes_1_c AS tln ON tln.prospectlists_notes_1notes_idb = notes.id

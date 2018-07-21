@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Filter;
 
 use Elastica\Filter\Type;
@@ -7,6 +6,9 @@ use Elastica\Test\Base as BaseTest;
 
 class TypeTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testSetType()
     {
         $typeFilter = new Type();
@@ -14,6 +16,9 @@ class TypeTest extends BaseTest
         $this->assertInstanceOf('Elastica\Filter\Type', $returnValue);
     }
 
+    /**
+     * @group unit
+     */
     public function testToArray()
     {
         $typeFilter = new Type('type_name');

@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica;
 
 use Elastica\Bulk\Action;
@@ -51,8 +50,9 @@ class Bulk
     }
 
     /**
-     * @param  string|\Elastica\Index $index
-     * @return \Elastica\Bulk
+     * @param string|\Elastica\Index $index
+     *
+     * @return $this
      */
     public function setIndex($index)
     {
@@ -82,8 +82,9 @@ class Bulk
     }
 
     /**
-     * @param  string|\Elastica\Type $type
-     * @return \Elastica\Bulk
+     * @param string|\Elastica\Type $type
+     *
+     * @return $this
      */
     public function setType($type)
     {
@@ -131,8 +132,9 @@ class Bulk
     }
 
     /**
-     * @param  \Elastica\Bulk\Action $action
-     * @return \Elastica\Bulk
+     * @param \Elastica\Bulk\Action $action
+     *
+     * @return $this
      */
     public function addAction(Action $action)
     {
@@ -142,8 +144,9 @@ class Bulk
     }
 
     /**
-     * @param  \Elastica\Bulk\Action[] $actions
-     * @return \Elastica\Bulk
+     * @param \Elastica\Bulk\Action[] $actions
+     *
+     * @return $this
      */
     public function addActions(array $actions)
     {
@@ -163,9 +166,10 @@ class Bulk
     }
 
     /**
-     * @param  \Elastica\Document $document
-     * @param  string             $opType
-     * @return \Elastica\Bulk
+     * @param \Elastica\Document $document
+     * @param string             $opType
+     *
+     * @return $this
      */
     public function addDocument(Document $document, $opType = null)
     {
@@ -175,9 +179,10 @@ class Bulk
     }
 
     /**
-     * @param  \Elastica\Document[] $documents
-     * @param  string               $opType
-     * @return \Elastica\Bulk
+     * @param \Elastica\Document[] $documents
+     * @param string               $opType
+     *
+     * @return $this
      */
     public function addDocuments(array $documents, $opType = null)
     {
@@ -189,9 +194,10 @@ class Bulk
     }
 
     /**
-     * @param  \Elastica\Script $data
-     * @param  string           $opType
-     * @return \Elastica\Bulk
+     * @param \Elastica\Script $script
+     * @param string           $opType
+     *
+     * @return $this
      */
     public function addScript(Script $script, $opType = null)
     {
@@ -201,9 +207,10 @@ class Bulk
     }
 
     /**
-     * @param  \Elastica\Document[] $scripts
-     * @param  string               $opType
-     * @return \Elastica\Bulk
+     * @param \Elastica\Document[] $scripts
+     * @param string               $opType
+     *
+     * @return $this
      */
     public function addScripts(array $scripts, $opType = null)
     {
@@ -215,9 +222,10 @@ class Bulk
     }
 
     /**
-     * @param  \Elastica\Script|\Elastica\Document\array $data
-     * @param  string                                    $opType
-     * @return \Elastica\Bulk
+     * @param \Elastica\Script|\Elastica\Document|array $data
+     * @param string                                    $opType
+     *
+     * @return $this
      */
     public function addData($data, $opType = null)
     {
@@ -231,7 +239,7 @@ class Bulk
             } elseif ($actionData instanceof Document) {
                 $this->addDocument($actionData, $opType);
             } else {
-                throw new \InvalidArgumentException("Data should be a Document, a Script or an array containing Documents and/or Scripts");
+                throw new \InvalidArgumentException('Data should be a Document, a Script or an array containing Documents and/or Scripts');
             }
         }
 
@@ -239,9 +247,11 @@ class Bulk
     }
 
     /**
-     * @param  array                                $data
-     * @return \Elastica\Bulk
+     * @param array $data
+     *
      * @throws \Elastica\Exception\InvalidException
+     *
+     * @return $this
      */
     public function addRawData(array $data)
     {
@@ -277,22 +287,30 @@ class Bulk
 
     /**
      * Set a url parameter on the request bulk request.
-     * @var string $name name of the parameter
-     * @var string $value value of the parameter
+     *
+     * @param string $name  name of the parameter
+     * @param string $value value of the parameter
+     *
+     * @return $this
      */
     public function setRequestParam($name, $value)
     {
-        $this->_requestParams[ $name ] = $value;
+        $this->_requestParams[$name] = $value;
+
+        return $this;
     }
 
     /**
      * Set the amount of time that the request will wait the shards to come on line.
      * Requires Elasticsearch version >= 0.90.8.
-     * @var string $time timeout in Elasticsearch time format
+     *
+     * @param string $time timeout in Elasticsearch time format
+     *
+     * @return $this
      */
     public function setShardTimeout($time)
     {
-        $this->setRequestParam('timeout', $time);
+        return $this->setRequestParam('timeout', $time);
     }
 
     /**
@@ -345,9 +363,11 @@ class Bulk
     }
 
     /**
-     * @param  \Elastica\Response               $response
-     * @throws Exception\Bulk\ResponseException
-     * @throws Exception\InvalidException
+     * @param \Elastica\Response $response
+     *
+     * @throws \Elastica\Exception\Bulk\ResponseException
+     * @throws \Elastica\Exception\InvalidException
+     *
      * @return \Elastica\Bulk\ResponseSet
      */
     protected function _processResponse(Response $response)
@@ -397,8 +417,9 @@ class Bulk
     }
 
     /**
-     * @param  string                                $host
-     * @param  int                                   $port
+     * @param string $host
+     * @param int    $port
+     *
      * @throws \Elastica\Exception\Bulk\UdpException
      */
     public function sendUdp($host = null, $port = null)

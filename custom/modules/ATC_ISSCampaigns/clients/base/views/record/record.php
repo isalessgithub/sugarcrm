@@ -168,26 +168,6 @@ array (
           2 => 
           array (
             'newTab' => false,
-            'panelDefault' => 'expanded',
-            'name' => 'LBL_RECORDVIEW_PANEL4',
-            'label' => 'LBL_RECORDVIEW_PANEL4',
-            'columns' => '2',
-            'labelsOnTop' => 1,
-            'placeholders' => 1,
-            'fields' => 
-            array (
-              0 => 
-              array (
-                'name' => 'sales_notes_c',
-                'studio' => 'visible',
-                'label' => 'LBL_SALES_NOTES',
-                'span' => 12,
-              ),
-            ),
-          ),
-          3 => 
-          array (
-            'newTab' => false,
             'panelDefault' => 'collapsed',
             'name' => 'LBL_RECORDVIEW_PANEL2',
             'label' => 'LBL_RECORDVIEW_PANEL2',
@@ -228,7 +208,7 @@ array (
               ),
             ),
           ),
-          4 => 
+          3 => 
           array (
             'newTab' => true,
             'panelDefault' => 'collapsed',
@@ -297,7 +277,7 @@ array (
               ),
             ),
           ),
-          5 => 
+          4 => 
           array (
             'newTab' => true,
             'panelDefault' => 'expanded',
@@ -355,6 +335,118 @@ array (
         array (
           'maxColumns' => '2',
           'useTabs' => true,
+        ),
+        'buttons' => 
+        array (
+          0 => 
+          array (
+            'type' => 'button',
+            'name' => 'cancel_button',
+            'label' => 'LBL_CANCEL_BUTTON_LABEL',
+            'css_class' => 'btn-invisible btn-link',
+            'showOn' => 'edit',
+            'events' => 
+            array (
+              'click' => 'button:cancel_button:click',
+            ),
+          ),
+          1 => 
+          array (
+            'type' => 'rowaction',
+            'event' => 'button:save_button:click',
+            'name' => 'save_button',
+            'label' => 'LBL_SAVE_BUTTON_LABEL',
+            'css_class' => 'btn btn-primary',
+            'showOn' => 'edit',
+            'acl_action' => 'edit',
+          ),
+          2 => 
+          array (
+            'type' => 'actiondropdown',
+            'name' => 'main_dropdown',
+            'primary' => true,
+            'showOn' => 'view',
+            'buttons' => 
+            array (
+              0 => 
+              array (
+                'type' => 'rowaction',
+                'event' => 'button:edit_button:click',
+                'name' => 'edit_button',
+                'label' => 'LBL_EDIT_BUTTON_LABEL',
+                'acl_action' => 'edit',
+              ),
+              1 => 
+              array (
+                'type' => 'shareaction',
+                'name' => 'share',
+                'label' => 'LBL_RECORD_SHARE_BUTTON',
+                'acl_action' => 'view',
+              ),
+              2 => 
+              array (
+                'type' => 'pdfaction',
+                'name' => 'download-pdf',
+                'label' => 'LBL_PDF_VIEW',
+                'action' => 'download',
+                'acl_action' => 'view',
+              ),
+              3 => 
+              array (
+                'type' => 'pdfaction',
+                'name' => 'email-pdf',
+                'label' => 'LBL_PDF_EMAIL',
+                'action' => 'email',
+                'acl_action' => 'view',
+              ),
+              4 => 
+              array (
+                'type' => 'divider',
+              ),
+              5 => 
+              array (
+                'type' => 'rowaction',
+                'event' => 'button:find_duplicates_button:click',
+                'name' => 'find_duplicates_button',
+                'label' => 'LBL_DUP_MERGE',
+                'acl_action' => 'edit',
+              ),
+              6 => 
+              array (
+                'type' => 'rowaction',
+                'event' => 'button:duplicate_button:click',
+                'name' => 'duplicate_button',
+                'label' => 'LBL_DUPLICATE_BUTTON_LABEL',
+                'acl_module' => 'ATC_ISSCampaigns',
+                'acl_action' => 'create',
+              ),
+              7 => 
+              array (
+                'type' => 'rowaction',
+                'event' => 'button:audit_button:click',
+                'name' => 'audit_button',
+                'label' => 'LNK_VIEW_CHANGE_LOG',
+                'acl_action' => 'view',
+              ),
+              8 => 
+              array (
+                'type' => 'divider',
+              ),
+              9 => 
+              array (
+                'type' => 'rowaction',
+                'event' => 'button:delete_button:click',
+                'name' => 'delete_button',
+                'label' => 'LBL_DELETE_BUTTON_LABEL',
+                'acl_action' => 'delete',
+              ),
+            ),
+          ),
+          3 => 
+          array (
+            'name' => 'sidebar_toggle',
+            'type' => 'sidebartoggle',
+          ),
         ),
       ),
     ),

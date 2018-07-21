@@ -4,7 +4,7 @@
    
    class ATC_AppointmentsViewEdit extends ViewEdit {
          public function __construct() {
-           parent::ViewEdit();
+           parent::__construct();
            $this->useForSubpanel = true; // this variable specifies that these changes should work for subpanel
            $this->useModuleQuickCreateTemplate = true; // quick create template too
          }

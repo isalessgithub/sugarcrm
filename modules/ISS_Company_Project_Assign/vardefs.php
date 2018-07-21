@@ -26,6 +26,5 @@ $dictionary['ISS_Company_Project_Assign'] = array(
 );
 
 if (!class_exists('VardefManager')){
-    require_once 'include/SugarObjects/VardefManager.php';
 }
 VardefManager::createVardef('ISS_Company_Project_Assign','ISS_Company_Project_Assign', array('basic','team_security','assignable','taggable'));

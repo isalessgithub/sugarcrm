@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -21,7 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 require_once('include/Dashlets/DashletGeneric.php');
 require_once('modules/ISS_Company_Project_Assign/ISS_Company_Project_Assign.php');
 
-class ISS_Company_Project_AssignDashlet extends DashletGeneric { 
+class ISS_Company_Project_AssignDashlet extends DashletGeneric {
     public function __construct($id, $def = null)
     {
 		global $current_user, $app_strings;
@@ -34,6 +33,6 @@ class ISS_Company_Project_AssignDashlet extends DashletGeneric {
         $this->searchFields = $dashletData['ISS_Company_Project_AssignDashlet']['searchFields'];
         $this->columns = $dashletData['ISS_Company_Project_AssignDashlet']['columns'];
 
-        $this->seedBean = new ISS_Company_Project_Assign();        
+        $this->seedBean = new ISS_Company_Project_Assign();
     }
 }

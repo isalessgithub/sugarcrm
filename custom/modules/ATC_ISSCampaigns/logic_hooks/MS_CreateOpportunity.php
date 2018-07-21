@@ -42,7 +42,7 @@ class  MS_CreateOpportunity
 	$query ="select count(id) as count from atc_isscampaigns_opportunities_1_c where atc_isscampaigns_opportunities_1_c.atc_isscampaigns_opportunities_1atc_isscampaigns_ida = '".$campaign_bean->id."' and deleted=0;";
 	$res = $GLOBALS['db']->query($query);
 	//$res = $conn->executeQuery($query);
-	 
+
 	$count = '99';
 	while($row = $GLOBALS['db']->fetchByAssoc($res)){
 		$count = $row['count'];
@@ -50,14 +50,13 @@ class  MS_CreateOpportunity
 
 //	$GLOBALS['log']->fatal($campaign_bean->campaign_start_date_c);
        //if(count($campaign_bean->get_linked_beans('atc_isscampaigns_opportunities_1', 'Opportunities')) == 0){
+
 	if(($count == 0 || $count == "0") && $campaign_bean->campaign_start_date_c != ''){
 //	$GLOBALS['log']->fatal(json_encode($arguments,JSON_PRETTY_PRINT));
 
-
-	$GLOBALS['log']->fatal("Creating new opp");
 	// load relationship between campaign and opportunities
         $campaign_bean->load_relationship('atc_isscampaigns_opportunities_1');
-	
+
 
         // make sure that this is an after save LH
         if ($event != 'after_save') {
@@ -107,5 +106,3 @@ class  MS_CreateOpportunity
     }
 
 }
-
-

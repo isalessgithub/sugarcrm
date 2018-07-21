@@ -1,6 +1,6 @@
 <?php
-// created: 2014-02-27 00:11:06
-$dictionary["aqa_appointment_plan_atc_isscampaigns"] = array (
+// created: 2018-03-09 13:24:25
+$dictionary['aqa_appointment_plan_atc_isscampaigns'] = array (
   'true_relationship_type' => 'one-to-many',
   'relationships' => 
   array (
@@ -21,18 +21,18 @@ $dictionary["aqa_appointment_plan_atc_isscampaigns"] = array (
   'table' => 'aqa_appointment_plan_atc_isscampaigns_c',
   'fields' => 
   array (
-    0 => 
+    'id' => 
     array (
       'name' => 'id',
       'type' => 'varchar',
       'len' => 36,
     ),
-    1 => 
+    'date_modified' => 
     array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    2 => 
+    'deleted' => 
     array (
       'name' => 'deleted',
       'type' => 'bool',
@@ -40,13 +40,13 @@ $dictionary["aqa_appointment_plan_atc_isscampaigns"] = array (
       'default' => '0',
       'required' => true,
     ),
-    3 => 
+    'aqa_appointment_plan_atc_isscampaignsatc_isscampaigns_ida' => 
     array (
       'name' => 'aqa_appointment_plan_atc_isscampaignsatc_isscampaigns_ida',
       'type' => 'varchar',
       'len' => 36,
     ),
-    4 => 
+    'aqa_appointment_plan_atc_isscampaignsaqa_appointment_plan_idb' => 
     array (
       'name' => 'aqa_appointment_plan_atc_isscampaignsaqa_appointment_plan_idb',
       'type' => 'varchar',

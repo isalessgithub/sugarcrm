@@ -1,5 +1,5 @@
 <?php
-// created: 2018-06-28 22:40:11
+// created: 2018-07-13 12:46:59
 $subpanel_layout['list_fields'] = array (
   'atc_isscampaigns_iss2_bu_results_1_name' => 
   array (
@@ -7,7 +7,7 @@ $subpanel_layout['list_fields'] = array (
     'link' => true,
     'vname' => 'LBL_ATC_ISSCAMPAIGNS_ISS2_BU_RESULTS_1_FROM_ATC_ISSCAMPAIGNS_TITLE',
     'id' => 'ATC_ISSCAMPAIGNS_ISS2_BU_RESULTS_1ATC_ISSCAMPAIGNS_IDA',
-    'width' => '10%',
+    'width' => 10,
     'default' => true,
     'widget_class' => 'SubPanelDetailViewLink',
     'target_module' => 'ATC_ISSCampaigns',
@@ -18,13 +18,20 @@ $subpanel_layout['list_fields'] = array (
     'type' => 'enum',
     'default' => true,
     'vname' => 'LBL_TEAM_ASSIGNED',
-    'width' => '10%',
+    'width' => 10,
   ),
   'team_target_c' => 
   array (
     'type' => 'int',
     'vname' => 'LBL_TEAM_TARGET',
-    'width' => '10%',
+    'width' => 10,
+    'default' => true,
+  ),
+  'monthly_team_quota_c' => 
+  array (
+    'type' => 'int',
+    'vname' => 'LBL_MONTHLY_TEAM_QUOTA',
+    'width' => 10,
     'default' => true,
   ),
   'date_entered' => 
@@ -36,7 +43,7 @@ $subpanel_layout['list_fields'] = array (
     ),
     'readonly' => true,
     'vname' => 'LBL_DATE_ENTERED',
-    'width' => '10%',
+    'width' => 10,
     'default' => true,
   ),
   'created_by_name' => 
@@ -46,7 +53,7 @@ $subpanel_layout['list_fields'] = array (
     'readonly' => true,
     'vname' => 'LBL_CREATED',
     'id' => 'CREATED_BY',
-    'width' => '10%',
+    'width' => 10,
     'default' => true,
     'widget_class' => 'SubPanelDetailViewLink',
     'target_module' => 'Users',

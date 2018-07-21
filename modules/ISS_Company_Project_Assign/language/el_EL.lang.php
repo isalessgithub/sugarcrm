@@ -52,4 +52,6 @@ $mod_strings = array (
   'LNK_IMPORT_VCARD' => 'Import Company Project Assignment vCard',
   'LBL_IMPORT' => 'Import Company Project Assignments',
   'LBL_IMPORT_VCARDTEXT' => 'Automatically create a new Company Project Assignment record by importing a vCard from your file system.',
+  'LBL_ASSIGNED_SDR' => 'Assigned SDR',
+  'LBL_DELEGATED_BY' => 'Delegated by',
 );

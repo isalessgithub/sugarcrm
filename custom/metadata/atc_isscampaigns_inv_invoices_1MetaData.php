@@ -1,5 +1,5 @@
 <?php
-// created: 2018-07-19 21:41:03
+// created: 2018-07-12 16:07:06
 $dictionary["atc_isscampaigns_inv_invoices_1"] = array (
   'true_relationship_type' => 'one-to-many',
   'from_studio' => true,
