@@ -19,7 +19,7 @@
 
 require_once('modules/INV_Invoices/INV_Invoices.php');
 
-class INV_InvoicesDashlet extends DashletGeneric { 
+class INV_InvoicesDashlet extends DashletGeneric {
     public function __construct($id, $def = null)
     {
 		global $current_user, $app_strings;
@@ -32,6 +32,6 @@ class INV_InvoicesDashlet extends DashletGeneric {
         $this->searchFields = $dashletData['INV_InvoicesDashlet']['searchFields'];
         $this->columns = $dashletData['INV_InvoicesDashlet']['columns'];
 
-        $this->seedBean = new INV_Invoices();        
+        $this->seedBean = new INV_Invoices();
     }
 }

@@ -1,5 +1,5 @@
 <?php
- // created: 2018-05-11 15:35:25
+ // created: 2018-07-12 13:53:04
 
 $app_list_strings['call_outcome_dom']=array (
   'Call' => 'Call',
@@ -24,4 +24,5 @@ $app_list_strings['call_outcome_dom']=array (
   'Does_Not_Qualify' => 'Does Not Qualify',
   'Outsourced' => 'Outsourced',
   'Contact_Sales_Rep' => 'Contact Sales Rep',
+  'Social Marketing' => 'Social Marketing',
 );

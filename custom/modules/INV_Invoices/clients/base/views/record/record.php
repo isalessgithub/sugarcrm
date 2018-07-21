@@ -179,8 +179,8 @@ array (
                   0 => 'currency_id',
                   1 => 'base_rate',
                 ),
-                'name' => 'invoice_amount_c',
-                'label' => 'LBL_INVOICE_AMOUNT',
+                'name' => 'invoice_amount_total_c',
+                'label' => 'LBL_INVOICE_AMOUNT_TOTAL',
               ),
               2 => 
               array (
