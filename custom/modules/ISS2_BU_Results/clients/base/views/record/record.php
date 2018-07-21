@@ -187,6 +187,14 @@ array (
               ),
               4 => 
               array (
+              ),
+              5 => 
+              array (
+                'name' => 'monthly_team_quota_c',
+                'label' => 'LBL_MONTHLY_TEAM_QUOTA',
+              ),
+              6 => 
+              array (
                 'name' => 'description',
                 'span' => 12,
               ),

@@ -1,6 +1,6 @@
 <?php
 // created: 2018-03-09 13:24:25
-$dictionary['atc_isscampaigns_contacts'] = array (
+/*$dictionary['atc_isscampaigns_contacts'] = array (
   'true_relationship_type' => 'many-to-many',
   'relationships' => 
   array (
@@ -75,4 +75,4 @@ $dictionary['atc_isscampaigns_contacts'] = array (
       ),
     ),
   ),
-);
+);*/

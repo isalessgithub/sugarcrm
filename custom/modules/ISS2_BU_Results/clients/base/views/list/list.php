@@ -39,6 +39,13 @@ array (
               ),
               3 => 
               array (
+                'name' => 'monthly_team_quota_c',
+                'label' => 'LBL_MONTHLY_TEAM_QUOTA',
+                'enabled' => true,
+                'default' => true,
+              ),
+              4 => 
+              array (
                 'name' => 'atc_isscampaigns_iss2_bu_results_1_name',
                 'label' => 'LBL_ATC_ISSCAMPAIGNS_ISS2_BU_RESULTS_1_FROM_ATC_ISSCAMPAIGNS_TITLE',
                 'enabled' => true,
@@ -47,13 +54,13 @@ array (
                 'sortable' => false,
                 'default' => true,
               ),
-              4 => 
+              5 => 
               array (
                 'name' => 'date_entered',
                 'enabled' => true,
                 'default' => true,
               ),
-              5 => 
+              6 => 
               array (
                 'name' => 'created_by_name',
                 'label' => 'LBL_CREATED',
@@ -63,7 +70,7 @@ array (
                 'link' => true,
                 'default' => true,
               ),
-              6 => 
+              7 => 
               array (
                 'name' => 'team_name',
                 'label' => 'LBL_TEAM',

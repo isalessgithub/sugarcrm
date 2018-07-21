@@ -1,6 +1,6 @@
 <?php
  // created: 2013-08-06 15:00:00
-$layout_defs["Contacts"]["subpanel_setup"]['atc_isscampaigns_contacts'] = array (
+/*$layout_defs["Contacts"]["subpanel_setup"]['atc_isscampaigns_contacts'] = array (
   'order' => 100,
   'module' => 'ATC_ISSCampaigns',
   'subpanel_name' => 'default',
@@ -20,4 +20,4 @@ $layout_defs["Contacts"]["subpanel_setup"]['atc_isscampaigns_contacts'] = array 
       'mode' => 'MultiSelect',
     ),
   ),
-);
+);*/

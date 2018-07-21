@@ -1,5 +1,5 @@
 <?php
-// created: 2018-06-28 22:40:12
+// created: 2018-07-13 12:46:59
 $viewdefs['ISS2_BU_Results']['base']['view']['subpanel-for-atc_isscampaigns-atc_isscampaigns_iss2_bu_results_1'] = array (
   'panels' => 
   array (
@@ -35,13 +35,20 @@ $viewdefs['ISS2_BU_Results']['base']['view']['subpanel-for-atc_isscampaigns-atc_
         ),
         3 => 
         array (
+          'name' => 'monthly_team_quota_c',
+          'label' => 'LBL_MONTHLY_TEAM_QUOTA',
+          'enabled' => true,
+          'default' => true,
+        ),
+        4 => 
+        array (
           'name' => 'date_entered',
           'label' => 'LBL_DATE_ENTERED',
           'enabled' => true,
           'readonly' => true,
           'default' => true,
         ),
-        4 => 
+        5 => 
         array (
           'name' => 'created_by_name',
           'label' => 'LBL_CREATED',

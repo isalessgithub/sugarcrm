@@ -1,5 +1,5 @@
 <?php
- // created: 2018-06-28 22:50:54
+ // created: 2018-07-13 12:47:51
 $dictionary['ISS2_BU_Results']['fields']['name']['len']='255';
 $dictionary['ISS2_BU_Results']['fields']['name']['audited']=false;
 $dictionary['ISS2_BU_Results']['fields']['name']['massupdate']=false;
@@ -14,7 +14,7 @@ $dictionary['ISS2_BU_Results']['fields']['name']['full_text_search']=array (
   'searchable' => true,
 );
 $dictionary['ISS2_BU_Results']['fields']['name']['calculated']='1';
-$dictionary['ISS2_BU_Results']['fields']['name']['formula']='concat(strToUpper($team_assigned_c)," Results - ",related($atc_isscampaigns_iss2_bu_results_1,"name"))';
+$dictionary['ISS2_BU_Results']['fields']['name']['formula']='concat(strToUpper($team_assigned_c)," Assignment - ",related($atc_isscampaigns_iss2_bu_results_1,"name"))';
 $dictionary['ISS2_BU_Results']['fields']['name']['enforced']=true;
 
  ?>
