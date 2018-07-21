@@ -128,6 +128,13 @@ array (
               ),
               13 => 
               array (
+                'related_fields' => 
+                array (
+                  0 => 'currency_id',
+                  1 => 'base_rate',
+                ),
+                'name' => 'total_amount_paid_c',
+                'label' => 'LBL_TOTAL_AMOUNT_PAID',
               ),
               14 => 
               array (

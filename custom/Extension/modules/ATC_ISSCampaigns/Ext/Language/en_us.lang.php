@@ -39,3 +39,4 @@ $mod_strings['LBL_ATC_ISSCAMPAIGNS_TASKS_1_FROM_TASKS_TITLE'] = 'Company Project
 $mod_strings['LBL_CAMPAIGN_TERRITORY'] = 'Territory';
 $mod_strings['LBL_CAMPAIGN_TYPE'] = 'Campaign Type';
 $mod_strings['LBL_CAMPAIGN_PRICE'] = 'Price';
+$mod_strings['LBL_TOTAL_AMOUNT_PAID'] = 'Total Amount Paid';
