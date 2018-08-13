@@ -1,37 +1,39 @@
 <?php
-// created: 2018-01-09 19:29:37
+// created: 2018-08-10 14:02:54
 $subpanel_layout['list_fields'] = array (
   'name' => 
   array (
     'vname' => 'LBL_NAME',
     'widget_class' => 'SubPanelDetailViewLink',
-    'width' => '10%',
+    'width' => 10,
     'default' => true,
   ),
-  'users_atc_isscampaigns_1_name' => 
+  'campaign_type_c' => 
   array (
-    'type' => 'relate',
-    'link' => true,
-    'vname' => 'LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE',
-    'id' => 'USERS_ATC_ISSCAMPAIGNS_1USERS_IDA',
-    'width' => '10%',
+    'type' => 'enum',
     'default' => true,
-    'widget_class' => 'SubPanelDetailViewLink',
-    'target_module' => 'Users',
-    'target_record_key' => 'users_atc_isscampaigns_1users_ida',
+    'vname' => 'LBL_CAMPAIGN_TYPE',
+    'width' => 10,
+  ),
+  'appointment_target_campaign_c' => 
+  array (
+    'type' => 'int',
+    'default' => true,
+    'vname' => 'LBL_APPOINTMENT_TARGET_CAMPAIGN',
+    'width' => 10,
   ),
   'campaign_start_date_c' => 
   array (
     'type' => 'date',
     'vname' => 'LBL_CAMPAIGN_START_DATE',
-    'width' => '10%',
+    'width' => 10,
     'default' => true,
   ),
   'campaign_finish_date_c' => 
   array (
     'type' => 'date',
     'vname' => 'LBL_CAMPAIGN_FINISH_DATE',
-    'width' => '10%',
+    'width' => 10,
     'default' => true,
   ),
 );
