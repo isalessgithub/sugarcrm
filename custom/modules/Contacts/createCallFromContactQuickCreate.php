@@ -63,8 +63,10 @@ class createCallFromContactQuickCreateC {
 
                 $_SESSION['disable_workflow'] = "No";
                 $columns = array("call_id" => $call->id, "contact_id" => $parent_id);
-                $call->set_relationship('calls_contacts', $columns, true, false, null);
-            }
+//              $call->set_relationship('contacts', $columns, true, false, null);
+            	$call->load_relationship('contacts');
+		$call->contacts->add($parent_id);
+		}
         }
     }
 

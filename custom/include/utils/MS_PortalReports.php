@@ -13,7 +13,7 @@
  */
 function sendSnapshotReport($cp_user_id)
 {
-$GLOBALS['log']->fatal("1");
+$GLOBALS['log']->fatal("Sending portal report.");
     // generate the report's HTML (for passed portal user)
     $report = generateReport($cp_user_id);
 
@@ -30,7 +30,7 @@ $GLOBALS['log']->fatal("1");
     $emails = explode(";",$report['configuration']['email_address']);
 //	$GLOBALS['log']->fatal(json_encode($emails));
 	foreach($emails as $index => $email){
-//		$GLOBALS['log']->fatal($index . " - " .$email);
+	    $GLOBALS['log']->fatal(" Sending to - " .$email);
 	    $cp_user_identity = new EmailIdentity($email);
 	    $phpMailer->addRecipientsTo(array($cp_user_identity));
 	}
@@ -48,12 +48,12 @@ $GLOBALS['log']->fatal("1");
     $ccs = explode(";",$report['configuration']['email_address_cc']);
 
 
-    if ($ccs != ""){
+    if ($ccs != "" && $ccs != "null"){
    foreach($ccs as $index => $cc_address) {
            // introduce the CC identity
-        $cc_identity = new EmailIdentity($cc_address);
-
-        // add CC recipient
+        
+	$cc_identity = new EmailIdentity($cc_address);
+	// add CC recipient
         $phpMailer->addRecipientsCc(array($cc_identity));
     }
     }

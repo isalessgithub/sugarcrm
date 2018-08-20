@@ -14,6 +14,7 @@ class ContactAppointment
 
 		//$GLOBALS['log']->fatal($contact->id);
 		if(isset($contact->id)){
+		$contact->load_relationship("atc_appointments_contacts");
 		$apps = $contact->atc_appointments_contacts->getBeans();
 		//$GLOBALS['log']->fatal($contact->appointment_count_c);
 		$contact->appointment_count_c = count($apps);

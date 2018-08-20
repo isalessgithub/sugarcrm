@@ -3,7 +3,7 @@ echo getVersionedScript('custom/modules/ProspectLists/js/jquery.dataTables.min.j
 echo getVersionedScript('modules/ATC_Teleseller/javascript/ATC_JS/call_logging.js');
 echo getVersionedScript('modules/ATC_Teleseller/javascript/ATC_JS/send_email.js');
 
-$url = "http://crm.isaless.com/";
+$url = "https://crm.isaless.com/";
 global $mod_strings;
 global $current_language;
 global $sugar_config;
@@ -30,7 +30,7 @@ if (isset($_REQUEST['uid']) && !empty($_REQUEST['uid'])) {
 //$oContacts = $oProspectList->get_linked_beans('contacts', 'Contacts');
 
 
-    $cSQL = "
+   $cSQL = "
 SELECT accounts.id 'account_id', accounts.name 'account_name', CONCAT(first_name, ' ', last_name) AS 'full_name', 
        contacts.id AS 'contact_id', title,phone_other, phone_work, phone_mobile, primary_address_city, 
        primary_address_state, call_outcome_c, email_addresses.email_address as 'email1',
@@ -43,6 +43,22 @@ LEFT JOIN accounts ON accounts_contacts.account_id = accounts.id and accounts.de
 LEFT JOIN accounts_cstm ON accounts.id = accounts_cstm.id_c
 LEFT JOIN email_addr_bean_rel on bean_id = contacts.id and email_addr_bean_rel.deleted=0 AND email_addr_bean_rel.primary_address = 1
 LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addresses.id and email_addresses.deleted=0;";
+
+/*$cSQL = "
+SELECT accounts.id 'account_id', accounts.name 'account_name', CONCAT(first_name, ' ', last_name) AS 'full_name', 
+       contacts.id AS 'contact_id', title,phone_other, phone_work, phone_mobile, primary_address_city, 
+       primary_address_state, call_outcome_c, email_addresses.email_address as 'email1',
+       accounts_cstm.ct_storage_c, accounts_cstm.ct_security_c, accounts_cstm.ct_networking_c, accounts_cstm.ct_hardware_c
+FROM contacts
+INNER JOIN contacts_cstm ON contacts_cstm.id_c = contacts.id
+INNER JOIN prospect_lists_prospects ON prospect_lists_prospects.related_id = contacts.id AND prospect_list_id = '" . $_REQUEST['uid'] . "'
+LEFT JOIN accounts_contacts ON accounts_contacts.contact_id = contacts.id
+LEFT JOIN accounts ON accounts_contacts.account_id = accounts.id
+LEFT JOIN accounts_cstm ON accounts.id = accounts_cstm.id_c
+LEFT JOIN email_addr_bean_rel on bean_id = contacts.id 
+LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addresses.id
+where contacts.deleted = 0 AND accounts.deleted = 0 AND prospect_lists_prospects.deleted=0 AND prospect_lists_prospects.related_type ='Contacts' and accounts_contacts.deleted=0 and email_addr_bean_rel.deleted=0 AND email_addr_bean_rel.primary_address = 1 
+and email_addresses.deleted=0;";*/
 
     $cResult = $db->query($cSQL);
 

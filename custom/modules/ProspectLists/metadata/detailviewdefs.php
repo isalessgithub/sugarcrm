@@ -79,8 +79,8 @@ array (
         array (
           0 => 
           array (
-            'name' => 'account_total_c',
-            'label' => 'LBL_ACCOUNT_TOTAL',
+            'name' => 'list_quota_c',
+            'label' => 'LBL_LIST_QUOTA',
           ),
           1 => 
           array (
@@ -93,6 +93,15 @@ array (
         array (
           0 => 
           array (
+            'name' => 'account_total_c',
+            'label' => 'LBL_ACCOUNT_TOTAL',
+          ),
+          1 => '',
+        ),
+        4 => 
+        array (
+          0 => 
+          array (
             'name' => 'from_name_c',
             'label' => 'LBL_EMAIL_FROM_NAME',
           ),
@@ -102,7 +111,7 @@ array (
             'label' => 'LBL_EMAIL_FROM_ADDRESS',
           ),
         ),
-        4 => 
+        5 => 
         array (
           0 => 'description',
         ),

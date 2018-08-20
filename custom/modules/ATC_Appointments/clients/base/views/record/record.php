@@ -1,27 +1,27 @@
 <?php
-$viewdefs['ATC_Appointments'] =
+$viewdefs['ATC_Appointments'] = 
 array (
-  'base' =>
+  'base' => 
   array (
-    'view' =>
+    'view' => 
     array (
-      'record' =>
+      'record' => 
       array (
-        'buttons' =>
+        'buttons' => 
         array (
-          0 =>
+          0 => 
           array (
             'type' => 'button',
             'name' => 'cancel_button',
             'label' => 'LBL_CANCEL_BUTTON_LABEL',
             'css_class' => 'btn-invisible btn-link',
             'showOn' => 'edit',
-            'events' =>
+            'events' => 
             array (
               'click' => 'button:cancel_button:click',
             ),
           ),
-          1 =>
+          1 => 
           array (
             'type' => 'rowaction',
             'event' => 'button:save_button:click',
@@ -31,15 +31,15 @@ array (
             'showOn' => 'edit',
             'acl_action' => 'edit',
           ),
-          2 =>
+          2 => 
           array (
             'type' => 'actiondropdown',
             'name' => 'main_dropdown',
             'primary' => true,
             'showOn' => 'view',
-            'buttons' =>
+            'buttons' => 
             array (
-              0 =>
+              0 => 
               array (
                 'type' => 'rowaction',
                 'event' => 'button:edit_button:click',
@@ -47,14 +47,14 @@ array (
                 'label' => 'LBL_EDIT_BUTTON_LABEL',
                 'acl_action' => 'edit',
               ),
-              1 =>
+              1 => 
               array (
                 'type' => 'shareaction',
                 'name' => 'share',
                 'label' => 'LBL_RECORD_SHARE_BUTTON',
                 'acl_action' => 'view',
               ),
-              2 =>
+              2 => 
               array (
                 'type' => 'pdfaction',
                 'name' => 'download-pdf',
@@ -62,7 +62,7 @@ array (
                 'action' => 'download',
                 'acl_action' => 'view',
               ),
-              3 =>
+              3 => 
               array (
                 'type' => 'pdfaction',
                 'name' => 'email-pdf',
@@ -70,11 +70,11 @@ array (
                 'action' => 'email',
                 'acl_action' => 'view',
               ),
-              4 =>
+              4 => 
               array (
                 'type' => 'divider',
               ),
-              5 =>
+              5 => 
               array (
                 'type' => 'manage-subscription',
                 'name' => 'manage_subscription_button',
@@ -82,18 +82,18 @@ array (
                 'showOn' => 'view',
                 'value' => 'edit',
               ),
-              6 =>
+              6 => 
               array (
                 'type' => 'vcard',
                 'name' => 'vcard_button',
                 'label' => 'LBL_VCARD_DOWNLOAD',
                 'acl_action' => 'edit',
               ),
-              7 =>
+              7 => 
               array (
                 'type' => 'divider',
               ),
-              8 =>
+              8 => 
               array (
                 'type' => 'rowaction',
                 'event' => 'button:find_duplicates_button:click',
@@ -101,7 +101,7 @@ array (
                 'label' => 'LBL_DUP_MERGE',
                 'acl_action' => 'edit',
               ),
-              9 =>
+              9 => 
               array (
                 'type' => 'rowaction',
                 'event' => 'button:duplicate_button:click',
@@ -110,7 +110,7 @@ array (
                 'acl_module' => 'ATC_Appointments',
                 'acl_action' => 'create',
               ),
-              10 =>
+              10 => 
               array (
                 'type' => 'rowaction',
                 'event' => 'button:historical_summary_button:click',
@@ -118,7 +118,7 @@ array (
                 'label' => 'LBL_HISTORICAL_SUMMARY',
                 'acl_action' => 'view',
               ),
-              11 =>
+              11 => 
               array (
                 'type' => 'rowaction',
                 'event' => 'button:audit_button:click',
@@ -126,11 +126,11 @@ array (
                 'label' => 'LNK_VIEW_CHANGE_LOG',
                 'acl_action' => 'view',
               ),
-              12 =>
+              12 => 
               array (
                 'type' => 'divider',
               ),
-              13 =>
+              13 => 
               array (
                 'type' => 'rowaction',
                 'event' => 'button:delete_button:click',
@@ -138,11 +138,11 @@ array (
                 'label' => 'LBL_DELETE_BUTTON_LABEL',
                 'acl_action' => 'delete',
               ),
-              14 =>
+              14 => 
               array (
                 'type' => 'divider',
               ),
-              15 =>
+              15 => 
               array (
                 'type' => 'synogeneratedocaction',
                 'name' => 'synogeneratedocaction-download',
@@ -150,7 +150,7 @@ array (
                 'action' => 'download',
                 'acl_action' => 'view',
               ),
-              16 =>
+              16 => 
               array (
                 'type' => 'synogeneratedocaction',
                 'name' => 'synogeneratedocaction-email',
@@ -160,35 +160,35 @@ array (
               ),
             ),
           ),
-          3 =>
+          3 => 
           array (
             'name' => 'sidebar_toggle',
             'type' => 'sidebartoggle',
           ),
         ),
-        'panels' =>
+        'panels' => 
         array (
-          0 =>
+          0 => 
           array (
             'name' => 'panel_header',
             'header' => true,
-            'fields' =>
+            'fields' => 
             array (
-              0 =>
+              0 => 
               array (
                 'name' => 'picture',
                 'type' => 'avatar',
                 'size' => 'large',
                 'dismiss_label' => true,
               ),
-              1 =>
+              1 => 
               array (
                 'name' => 'name',
                 'label' => 'LBL_NAME',
               ),
             ),
           ),
-          1 =>
+          1 => 
           array (
             'name' => 'panel_body',
             'label' => 'LBL_RECORD_BODY',
@@ -198,145 +198,137 @@ array (
             'placeholders' => true,
             'newTab' => true,
             'panelDefault' => 'expanded',
-            'fields' =>
+            'fields' => 
             array (
-              0 =>
+              0 => 
               array (
                 'name' => 'appointment_number',
                 'label' => 'LBL_APPOINTMENT_NUMBER',
               ),
-              1 =>
+              1 => 
               array (
                 'name' => 'do_not_show_c',
                 'label' => 'LBL_DO_NOT_SHOW',
               ),
-              2 =>
+              2 => 
               array (
                 'name' => 'appointment_status',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_STATUS',
               ),
-              3 =>
+              3 => 
               array (
                 'name' => 'appointment_place',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_PLACE',
               ),
-              4 =>
+              4 => 
               array (
                 'name' => 'appointment_date',
                 'label' => 'LBL_APPOINTMENT_DATE',
               ),
-              5 =>
+              5 => 
               array (
                 'name' => 'appointment_duration_minutes',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_DURATION_MINUTES',
               ),
-              6 =>
+              6 => 
               array (
                 'name' => 'accounts_atc_appointments_1_name',
                 'label' => 'LBL_ACCOUNTS_ATC_APPOINTMENTS_1_FROM_ACCOUNTS_TITLE',
               ),
-              7 =>
+              7 => 
               array (
               ),
-              8 =>
+              8 => 
               array (
                 'name' => 'atc_appointments_contacts_name',
                 'label' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_CONTACTS_TITLE',
               ),
-              9 =>
+              9 => 
               array (
                 'name' => 'title_c',
                 'studio' => 'visible',
                 'label' => 'LBL_TITLE',
               ),
-              10 =>
+              10 => 
               array (
                 'name' => 'direct_c',
                 'studio' => 'visible',
                 'label' => 'LBL_DIRECT',
               ),
-              11 =>
+              11 => 
               array (
                 'name' => 'switchboard_c',
                 'studio' => 'visible',
                 'label' => 'LBL_SWITCHBOARD',
               ),
-              12 =>
+              12 => 
               array (
                 'name' => 'contact_email',
                 'label' => 'LBL_CONTACT_EMAIL',
               ),
-              13 =>
+              13 => 
               array (
                 'name' => 'contact_info_c',
                 'studio' => 'visible',
                 'label' => 'LBL_CONTACT_INFO',
               ),
-              14 =>
+              14 => 
               array (
                 'name' => 'description',
                 'comment' => 'Full text of the note',
                 'label' => 'LBL_DESCRIPTION',
                 'span' => 12,
               ),
-              15 =>
+              15 => 
               array (
                 'name' => 'atc_isscampaigns_atc_appointments_name',
                 'label' => 'LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_ISSCAMPAIGNS_TITLE',
               ),
-              16 =>
+              16 => 
               array (
                 'name' => 'partial_comp_c',
                 'label' => 'LBL_PARTIAL_COMP',
               ),
-              17 =>
+              17 => 
               array (
                 'name' => 'prospectlists_atc_appointments_1_name',
                 'label' => 'LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE',
               ),
-              18 =>
+              18 => 
               array (
                 'name' => 'partial_amount_c',
                 'label' => 'LBL_PARTIAL_AMOUNT',
               ),
-              19 =>
+              19 => 
               array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO',
               ),
-              20 =>
+              20 => 
               array (
                 'name' => 'created_by_name',
                 'readonly' => true,
                 'label' => 'LBL_CREATED',
               ),
-              21 =>
-              array (
-                'name' => 'appt_bu_c',
-                'label' => 'LBL_APPT_BU',
-              ),
-              22 =>
-              array (
-              ),
-              23 =>
+              21 => 
               array (
                 'name' => 'date_modified',
                 'comment' => 'Date record last modified',
-                'studio' =>
+                'studio' => 
                 array (
                   'portaleditview' => false,
                 ),
                 'readonly' => true,
                 'label' => 'LBL_DATE_MODIFIED',
               ),
-              24 =>
+              22 => 
               array (
                 'name' => 'date_entered',
                 'comment' => 'Date record created',
-                'studio' =>
+                'studio' => 
                 array (
                   'portaleditview' => false,
                 ),
@@ -345,7 +337,7 @@ array (
               ),
             ),
           ),
-          2 =>
+          2 => 
           array (
             'newTab' => false,
             'panelDefault' => 'expanded',
@@ -354,68 +346,68 @@ array (
             'columns' => '2',
             'labelsOnTop' => 1,
             'placeholders' => 1,
-            'fields' =>
+            'fields' => 
             array (
-              0 =>
+              0 => 
               array (
                 'name' => 'atc_clientsalesreps_atc_appointments_name',
                 'label' => 'LBL_ATC_CLIENTSALESREPS_ATC_APPOINTMENTS_FROM_ATC_CLIENTSALESREPS_TITLE',
               ),
-              1 =>
+              1 => 
               array (
                 'name' => 'second_client_rep_c',
                 'studio' => 'visible',
                 'label' => 'LBL_SECOND_CLIENT_REP',
               ),
-              2 =>
+              2 => 
               array (
                 'name' => 'clientrep_email1_c',
                 'label' => 'LBL_CLIENTREP_EMAIL1',
               ),
-              3 =>
+              3 => 
               array (
                 'name' => 'clientrep_email2_c',
                 'label' => 'LBL_CLIENTREP_EMAIL2',
               ),
-              4 =>
+              4 => 
               array (
                 'name' => 'feedback_status_c',
                 'label' => 'LBL_FEEDBACK_STATUS',
               ),
-              5 =>
+              5 => 
               array (
                 'name' => 'feedback_timestamp',
                 'label' => 'LBL_FEEDBACK_TIMESTAMP',
               ),
-              6 =>
+              6 => 
               array (
                 'name' => 'dm_qualified_c',
                 'label' => 'LBL_DM_QUALIFIED',
                 'span' => 12,
               ),
-              7 =>
+              7 => 
               array (
                 'name' => 'appointment_feedback',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_FEEDBACK',
                 'span' => 12,
               ),
-              8 =>
+              8 => 
               array (
                 'name' => 'positive_appointment_c',
                 'label' => 'LBL_POSITIVE_APPOINTMENT',
               ),
-              9 =>
+              9 => 
               array (
                 'name' => 'second_appointment_c',
                 'label' => 'LBL_SECOND_APPOINTMENT',
               ),
-              10 =>
+              10 => 
               array (
                 'name' => 'appointment_result_c',
                 'label' => 'LBL_APPOINTMENT_RESULT',
               ),
-              11 =>
+              11 => 
               array (
                 'name' => 'opportunity_amount',
                 'studio' => 'visible',
@@ -424,7 +416,7 @@ array (
             ),
           ),
         ),
-        'templateMeta' =>
+        'templateMeta' => 
         array (
           'maxColumns' => '2',
           'useTabs' => true,

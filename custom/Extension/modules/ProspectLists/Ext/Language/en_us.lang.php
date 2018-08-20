@@ -13,3 +13,4 @@ $mod_strings['LBL_LIST_ASSIGNED_USER'] = 'Assigned to';
 $mod_strings['LBL_ATC_ISSCAMPAIGNS_PROSPECTLISTS_1_FROM_ATC_ISSCAMPAIGNS_TITLE'] = 'ISS Campaign';
 $mod_strings['LBL_CLIENTS'] = 'Client';
 $mod_strings['LBL_TL_IMG'] = 'TL';
+$mod_strings['LBL_LIST_QUOTA'] = 'List Quota';

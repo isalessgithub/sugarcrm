@@ -135,13 +135,18 @@ function sendFeedback(){
 		while($newapp = $db->fetchRow($q)){
 			$app = BeanFactory::retrieveBean('ATC_Appointments', $newapp['id']);
 			if(sendFeedbackEmail($newapp['id'],$sa['message'])){
-				$app->feedback_status_c = $sa['newstatus'];
-				$app->save();
+				$app->feedback_status_c = $sa['newstatus'];			
 			}
 			else{
-					$app->feedback_status_c = 'not sent';
-					$app->save();
+				$app->feedback_status_c = 'not sent';
 			}
+			$fs = $app->feedback_status_c;
+			$app->save();
+			if($fs != $app->feedback_status_c){
+				$update="UPDATE appointments_cstm SET feedback_status_c = 'not_sent' WHERE id_c = '".$app->id."';";
+				$db->query($update);
+			}
+
 		}
 	}
 return true;

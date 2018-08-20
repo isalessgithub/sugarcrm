@@ -1,5 +1,5 @@
 <?php
- // created: 2018-08-09 09:20:08
+ // created: 2018-08-09 09:27:58
 
 $app_list_strings['syno_roles_list']=array (
   '4f684306-2f77-85fb-c511-5759d102f18d' => 'Campaign Managers',

@@ -70,6 +70,7 @@ class  MS_CreateOpportunity
         $opportunity_bean->name = $campaign_bean->name . ' Opportunity';
 
 	$opportunity_bean->sales_stage = "Closed Lost";
+        $opportunity_bean->assigned_user_id = $campaign_bean->modified_user_id;
 
 	$opportunity_bean->amount = "10000";
 
