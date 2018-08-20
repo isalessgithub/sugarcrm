@@ -193,8 +193,8 @@ if (!class_exists('VardefManager')) {
 if (!class_exists('ModuleInstaller')) {
     require_once('ModuleInstall/ModuleInstaller.php');
 }
-$mod_install = new ModuleInstaller();
-$mod_install->install_relationship('modules/ET_DuplicateCheck/relationship_definitions.php');
+//$mod_install = new ModuleInstaller();
+//$mod_install->install_relationship('modules/ET_DuplicateCheck/relationship_definitions.php');
 
 VardefManager::createVardef('ET_DuplicateCheck', 'ET_DuplicateCheck',
     array('basic', 'team_security', 'assignable', 'taggable'));
