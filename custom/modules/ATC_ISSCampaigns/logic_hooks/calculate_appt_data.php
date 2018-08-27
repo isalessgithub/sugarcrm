@@ -20,7 +20,7 @@ class  calculateAppointmentData
       inner join atc_isscampaigns_atc_appointments_c on atc_isscampaigns_atc_appointmentsatc_appointments_idb=atc_appointments.id
       inner join atc_isscampaigns on atc_isscampaigns_atc_appointmentsatc_isscampaigns_ida=atc_isscampaigns.id
 
-      where atc_isscampaigns_atc_appointmentsatc_isscampaigns_ida='".$bean->id."' and atc_appointments.deleted=0";      
+      where atc_isscampaigns_atc_appointmentsatc_isscampaigns_ida='".$bean->id."' and atc_appointments.deleted=0 AND atc_isscampaigns_atc_appointments_c.deleted=0";      
       
       $result=$bean->db->query($sql);
       $row  = $bean->db->fetchByAssoc($result);

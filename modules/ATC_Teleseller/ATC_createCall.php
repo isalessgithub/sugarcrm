@@ -2,8 +2,10 @@
 if (!defined('sugarEntry') || !sugarEntry) die ('Not a valid Entry Point');
 
 global $current_user;
-
-$call = new Call();
+$GLOBALS['log']->fatal("printing post");
+$GLOBALS['log']->fatal(json_encode($_POST));
+//$call = new Call();
+$call = BeanFactory::newBean('Calls');
 $module = $_POST['module'];
 $parent_id = $_POST['parent_id'];
 $call_outcome_c = '';
@@ -127,20 +129,22 @@ $_SESSION['disable_workflow'] = "Yes";
 	$tl->disable_row_level_security = true;
 	$tl->retrieve($call->prospectlists_calls_1prospectlists_ida);
 if(!isset($_REQUEST['save_only_followup_call']) || empty($_REQUEST['save_only_followup_call']) || $_REQUEST['save_only_followup_call'] == 'false'){
-	$call->save();
+	//$call->save();
 	global $db;
 	$update_campaign_name_c_query = "UPDATE calls_cstm SET campaign_name_c = '{$tl->name}' WHERE id_c = '{$call->id}'";
 	$db->query($update_campaign_name_c_query);
 	//$call->campaign_name_c = $tl->name;
-	//$call->save();
+	$call->save();
 	$_SESSION['disable_workflow'] = "No";
-
+$GLOBALS['log']->fatal($call->id);
 	if ($module == "Contacts") {
 	  //set relationship between calls and contacts calls_contacts
+		$GLOBALS['log']->fatal("parent id".$parent_id);
 	  $columns = array("call_id" => $call->id, "contact_id" => $parent_id);
 	  $values = array($call->id, $parent_id);
-	  $call->set_relationship('calls_contacts', $columns, true, false, null);
-	  //$call->calls_contacts->add($parent_id);
+	  $call->set_relationship('calls_contacts', $columns, true, false, $values);
+	  //$call->load_relationship("contacts");
+	  //$call->contacts->add($parent_id);
 
 	}
 
@@ -148,7 +152,7 @@ if(!isset($_REQUEST['save_only_followup_call']) || empty($_REQUEST['save_only_fo
 	  //set relationship between calls and leads calls_leads
 	  $columns = array("call_id" => $call->id, "lead_id" => $parent_id);
 	  $values = array($call->id, $parent_id);
-	  $call->set_relationship('calls_leads', $columns, true, false, null);
+	  $call->set_relationship('calls_leads', $columns, true, false, $values);
 	}
 
 	if ($call->id != "" && ${$module}->id != "") {
@@ -183,7 +187,7 @@ if(isset($_REQUEST['start_date']) && !empty($_REQUEST['start_date'])){
 	  //set relationship between calls and contacts calls_contacts
 	  $columns = array("call_id" => $additional_call->id, "contact_id" => $parent_id);
 	  $values = array($additional_call->id, $parent_id);
-	  $additional_call->set_relationship('calls_contacts', $columns, true, false, null);
+	  $additional_call->set_relationship('calls_contacts', $columns, true, false, $values);
 	  //$call->calls_contacts->add($parent_id);
 
 	}
@@ -192,7 +196,7 @@ if(isset($_REQUEST['start_date']) && !empty($_REQUEST['start_date'])){
 	  //set relationship between calls and leads calls_leads
 	  $columns = array("call_id" => $additional_call->id, "lead_id" => $parent_id);
 	  $values = array($additional_call->id, $parent_id);
-	  $additional_call->set_relationship('calls_leads', $columns, true, false, null);
+	  $additional_call->set_relationship('calls_leads', $columns, true, false, $values);
 	}
 }
 if(empty($msg))

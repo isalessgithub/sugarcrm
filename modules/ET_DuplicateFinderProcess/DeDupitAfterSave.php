@@ -14,7 +14,8 @@ class DeDupitAfterSave
         'ET_DuplicateCheck',
         'ET_FoundDuplicates',
         'Dashboards',
-        'UserPreferences'
+        'UserPreferences',
+	'Contacts'
     );
 
     /**
