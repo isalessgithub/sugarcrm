@@ -150,7 +150,7 @@ function sendFeedback(){
 			}
 			else{
 				$app->feedback_status_c = 'not sent';
-				$app->save()
+				$app->save();
 			}
 			$fs = $app->feedback_status_c;
 			if($fs != $app->feedback_status_c){
