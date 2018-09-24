@@ -198,13 +198,13 @@ $GLOBALS['log']->fatal("x");
         $query = "
                  SELECT
                     SUM(CASE WHEN atc_appointments.date_entered >= '" . $last_7 . "' THEN 1 ELSE 0 END) AS appointments_last_week,
-                    SUM(CASE WHEN appointment_date >= '" . $last_7 . "' and (appointment_status='Attended' OR appointment_status = 'Attended_Policy') THEN 1 ELSE 0 END) AS attended_last_week,
+                    SUM(CASE WHEN appointment_date >= '" . $last_7 . "' and (appointment_status='Attended' OR appointment_status ='DC_Appt_Attended' OR appointment_status = 'Attended_Policy') THEN 1 ELSE 0 END) AS attended_last_week,
                     SUM(CASE WHEN appointment_status = 'Reschedule' THEN 1 ELSE 0 END) AS num_rescheduled,
                     SUM(CASE WHEN appointment_status = 'Cancelled' THEN 1 ELSE 0 END) AS num_cancelled,
-                    SUM(CASE WHEN appointment_status = 'Attended' OR appointment_status = 'Attended_Policy' THEN 1 ELSE 0 END) AS num_attended,
+                    SUM(CASE WHEN appointment_status = 'Attended' OR appointment_status = 'Attended_Policy' OR appointment_status='DC_Appt_Attended' THEN 1 ELSE 0 END) AS num_attended,
                     SUM(CASE WHEN atc_appointments.deleted='0' THEN 1 ELSE 0 END) AS total_generated,
-                    SUM(CASE WHEN (appointment_status='Attended' OR appointment_status = 'Attended_Policy') and atc_appointments.deleted='0'  THEN 1 ELSE 0 END) AS total_attended,
-                    SUM(CASE WHEN appointment_status IN ('Attended','Attended_Policy','Cancelled','Accepted','Reschedule','Confirmed') THEN 1 ELSE 0 END) AS num_appointments,
+                    SUM(CASE WHEN (appointment_status='Attended' OR appointment_status = 'DC_Appt_Attended' OR appointment_status = 'Attended_Policy') and atc_appointments.deleted='0'  THEN 1 ELSE 0 END) AS total_attended,
+                    SUM(CASE WHEN appointment_status IN ('Attended','Attended_Policy','DC_Appt_Attended','Cancelled','DC_Appt_Accepted','Accepted','Reschedule','Confirmed') THEN 1 ELSE 0 END) AS num_appointments,
                     SUM(CASE WHEN appointment_status = 'Attended_Policy' THEN 1 ELSE 0 END) AS attended_policy,
                     camp.name AS CampName
                  FROM atc_appointments
@@ -576,7 +576,7 @@ $GLOBALS['log']->fatal("x");
                         <td style='border: 1px solid black; padding-right:5px; background-color: #FFF1CE; text-align: right;'>{$campaign_data['attended']}</td>
                     </tr>
                     <tr>
-                        <td style='border: 1px solid black; padding: 5px;'>Attended by policy:</td>
+                        <td style='border: 1px solid black; padding: 5px;'>Attended by Default:</td>
                         <td style='border: 1px solid black; padding-right:5px; background-color: #FFF1CE; text-align: right;'>{$campaign_data['attended_by_policy']}</td>
                     </tr>
                 </table>";

@@ -1,5 +1,5 @@
 <?php
- // created: 2017-11-01 18:11:24
+ // created: 2018-09-04 08:25:48
 
 $app_list_strings['appointment_status_0']=array (
   '' => '',
@@ -7,7 +7,7 @@ $app_list_strings['appointment_status_0']=array (
   'Confirmed' => 'Confirmed',
   'Attended' => 'Attended',
   'Reschedule' => 'Reschedule',
-  'Attended_Policy' => 'Attended by Policy',
+  'Attended_Policy' => 'Attended by Default',
   'Cancelled' => 'Cancelled',
   'Cancelled_ISS' => 'Cancelled - ISS',
   'Event Registration' => 'Event Registration',

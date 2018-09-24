@@ -115,14 +115,22 @@ function sendFeedbackEmail($id,$message){
 	else {return false;}
 }
 function sendFeedback(){
+	//get current time in easter timezone.
+	$ct = new DateTime("now", new DateTimeZone("America/New_York"));
+	//get the current 24 clock hour, without leading zeroes.  convert to integer.
+        $cr = intval($ct->format("G"));
+	$dr = intval($ct->format("w"));
+	//check if it's business hours. (after 8am, until 5:59)  also check if the day is monday to friday (1-5).
+        if($cr < 18 && $cr>7 && $dr < 6){
+
 	//0, 3, 6 12, 24
 	$sendingar = array();
 	$sendingar[] = array("time" => 0,"oldstatus" => "qualified","newstatus" => "sent", "message" => "");
 	$sendingar[] = array("time" => 4,"oldstatus" => "sent","newstatus" => "sent twice", "message" => " Second Notification");
-	$sendingar[] = array("time" => 20,"oldstatus" => "sent twice","newstatus" => "sent thrice", "message" => " Third Notification");
-	$sendingar[] = array("time" => 26,"oldstatus" => "sent thrice","newstatus" => "sent four", "message" => " Fourth Notification");
-	$sendingar[] = array("time" => 40,"oldstatus" => "sent four","newstatus" => "sent five", "message" => " Fifth Notification");
-	$sendingar[] = array("time" => 46,"oldstatus" => "sent five","newstatus" => "sent final", "message" => " Final Notification");
+	$sendingar[] = array("time" => 16,"oldstatus" => "sent twice","newstatus" => "sent thrice", "message" => " Third Notification");
+	$sendingar[] = array("time" => 6,"oldstatus" => "sent thrice","newstatus" => "sent four", "message" => " Fourth Notification");
+	$sendingar[] = array("time" => 14,"oldstatus" => "sent four","newstatus" => "sent five", "message" => " Fifth Notification");
+	$sendingar[] = array("time" => 6,"oldstatus" => "sent five","newstatus" => "sent final", "message" => " Final Notification");
         $db = DBManagerFactory::GetInstance();
         global $timedate;
 	foreach($sendingar as $sa){
@@ -135,19 +143,23 @@ function sendFeedback(){
 		while($newapp = $db->fetchRow($q)){
 			$app = BeanFactory::retrieveBean('ATC_Appointments', $newapp['id']);
 			if(sendFeedbackEmail($newapp['id'],$sa['message'])){
+				$dt = new SugarDateTime();
+				$ap->feedback_timestamp = $dt->asDb();
 				$app->feedback_status_c = $sa['newstatus'];			
+				$app->save();
 			}
 			else{
 				$app->feedback_status_c = 'not sent';
+				$app->save()
 			}
 			$fs = $app->feedback_status_c;
-			$app->save();
 			if($fs != $app->feedback_status_c){
 				$update="UPDATE appointments_cstm SET feedback_status_c = 'not_sent' WHERE id_c = '".$app->id."';";
 				$db->query($update);
 			}
 
 		}
+	}
 	}
 return true;
 }
