@@ -122,7 +122,6 @@ function sendFeedback(){
 	$dr = intval($ct->format("w"));
 	//check if it's business hours. (after 8am, until 5:59)  also check if the day is monday to friday (1-5).
         if($cr < 18 && $cr>7 && $dr < 6){
-
 	//0, 3, 6 12, 24
 	$sendingar = array();
 	$sendingar[] = array("time" => 0,"oldstatus" => "qualified","newstatus" => "sent", "message" => "");
