@@ -1,6 +1,6 @@
 <?php
- // created: 2018-07-30 15:32:07
-$dictionary['ProspectList']['fields']['list_quota_c']['labelValue']='List Quota';
+ // created: 2018-09-28 09:33:09
+$dictionary['ProspectList']['fields']['list_quota_c']['labelValue']='SDR Quota';
 $dictionary['ProspectList']['fields']['list_quota_c']['full_text_search']=array (
   'enabled' => '0',
   'boost' => '1',

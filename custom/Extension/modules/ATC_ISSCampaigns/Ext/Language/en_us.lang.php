@@ -47,3 +47,4 @@ $mod_strings['LBL_APPOINTMENT_TARGET_CAMPAIGN'] = 'Campaign Appointment Target';
 $mod_strings['LBL_CURRENCY_0'] = 'LBL_CURRENCY';
 $mod_strings['LBL_TOTAL_AMOUNT_PAID'] = 'Total Amount Paid';
 $mod_strings['LBL_ATC_ISSCAMPAIGNS_ISS2_BU_RESULTS_1_FROM_ISS2_BU_RESULTS_TITLE'] = 'Business Unit Assignment';
+$mod_strings['LBL_BUSINESS_UNIT'] = 'Business Unit Assigned';

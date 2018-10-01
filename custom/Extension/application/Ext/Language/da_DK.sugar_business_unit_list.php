@@ -1,5 +1,5 @@
 <?php
- // created: 2018-06-28 21:47:42
+ // created: 2018-09-28 11:54:18
 
 $app_list_strings['business_unit_list']=array (
   '' => '',
@@ -9,6 +9,7 @@ $app_list_strings['business_unit_list']=array (
   'bu4' => 'Business Unit 4',
   'ru' => 'Remote Unit',
   'spu' => 'Special Projects Unit',
-  'tu' => 'Training Unit',
   'dr' => 'Dedicated Resource',
+  'tuFL' => 'Training Unit FL',
+  'tuNY' => 'Training Unit NY',
 );

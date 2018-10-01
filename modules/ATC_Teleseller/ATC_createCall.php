@@ -55,13 +55,13 @@ if ($module == 'Contacts') {
   // lets relate the call to Target list
   if (!empty($_REQUEST['target_list_id'])){
     $call->prospectlists_calls_1prospectlists_ida = $_REQUEST['target_list_id'];
-    $target_list_related = BeanFactory::getBean("ProspectLists",$_REQUEST['target_list_id']);
+    $target_list_related = BeanFactory::retrieveBean("ProspectLists",$_REQUEST['target_list_id']);
     // assign campaign id to call
     $call->atc_isscampaigns_calls_1atc_isscampaigns_ida = $target_list_related->atc_isscampaigns_prospectlists_1atc_isscampaigns_ida;
   }
 
   // let's populate account name
-  $contact_account = BeanFactory::getBean("Accounts",$Contacts->account_id);
+  $contact_account = BeanFactory::retrieveBean("Accounts",$Contacts->account_id);
   if(isset($contact_account->name) && !empty($contact_account->name)){
     $call->account_c = $contact_account->name;
   }
