@@ -1,5 +1,5 @@
 <?php
-// created: 2018-03-28 14:11:17
+// created: 2018-10-09 14:59:30
 $viewdefs['Contacts']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
@@ -64,6 +64,9 @@ $viewdefs['Contacts']['base']['filter']['default'] = array (
     array (
     ),
     'appointment_count_c' => 
+    array (
+    ),
+    'add_to_target_list_c' => 
     array (
     ),
   ),

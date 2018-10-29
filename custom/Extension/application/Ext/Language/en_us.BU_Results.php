@@ -11,6 +11,6 @@
  */
 
 $app_list_strings['moduleList']['ISS2_Business_Unit_Results'] = 'Business Unit Results';
-$app_list_strings['moduleList']['ISS2_BU_Results'] = 'Business Unit Results';
+$app_list_strings['moduleList']['ISS2_BU_Results'] = 'Business Unit Assignments';
 $app_list_strings['moduleListSingular']['ISS2_Business_Unit_Results'] = 'Business Unit Result';
-$app_list_strings['moduleListSingular']['ISS2_BU_Results'] = 'Business Unit Results';
+$app_list_strings['moduleListSingular']['ISS2_BU_Results'] = 'Business Unit Assignments';

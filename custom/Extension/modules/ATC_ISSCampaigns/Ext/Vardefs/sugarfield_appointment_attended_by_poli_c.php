@@ -1,6 +1,6 @@
 <?php
- // created: 2017-04-06 13:18:41
-$dictionary['ATC_ISSCampaigns']['fields']['appointment_attended_by_poli_c']['labelValue']='Appointment Attended by Policy';
+ // created: 2018-10-03 12:24:32
+$dictionary['ATC_ISSCampaigns']['fields']['appointment_attended_by_poli_c']['labelValue']='Appointment Attended by Default';
 $dictionary['ATC_ISSCampaigns']['fields']['appointment_attended_by_poli_c']['full_text_search']=array (
   'enabled' => '0',
   'boost' => '1',

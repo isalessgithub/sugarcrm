@@ -161,7 +161,16 @@ array (
               18 => 
               array (
                 'name' => 'description',
-                'span' => 12,
+                'span' => 6,
+              ),
+              19 => 
+              array (
+                'name' => 'atc_isscampaigns_atc_clientsalesreps_1_name',
+                'span' => 6,
+              ),
+              20 => 
+              array (
+                'name' => 'atc_isscampaigns_atc_clientsalesreps_1_name',
               ),
             ),
           ),

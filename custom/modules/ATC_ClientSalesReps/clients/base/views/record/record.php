@@ -260,6 +260,17 @@ array (
                 'label' => 'LBL_NETAPP_DISTRICT',
               ),
               15 => 'team_name',
+              16 => 
+              array (
+                'name' => 'atc_isscampaigns_atc_clientsalesreps_1_name',
+              ),
+              17 => 
+              array (
+              ),
+              18 => 
+              array (
+                'name' => 'atc_isscampaigns_atc_clientsalesreps_1_name',
+              ),
             ),
           ),
         ),

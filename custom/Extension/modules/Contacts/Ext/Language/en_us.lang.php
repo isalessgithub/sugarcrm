@@ -8,3 +8,5 @@ $mod_strings['LBL_PHONE_MOBILE'] = 'Mobile Phone';
 $mod_strings['LBL_PHONE_WORK'] = 'Work Phone';
 $mod_strings['LNK_NEW_TASK'] = 'Create Company Project';
 $mod_strings['LBL_ACCOUNT_PHONE'] = 'Account Phone';
+$mod_strings['LBL_ADD_TO_TARGET_LIST'] = 'Add to Target List';
+$mod_strings['LBL_ACCOUNT'] = 'Account';

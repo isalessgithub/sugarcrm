@@ -1,5 +1,5 @@
 <?php
-// created: 2017-07-21 14:51:40
+// created: 2018-10-25 08:33:20
 $viewdefs['ATC_Appointments']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
@@ -26,6 +26,9 @@ $viewdefs['ATC_Appointments']['base']['filter']['default'] = array (
     array (
     ),
     'appointment_date' => 
+    array (
+    ),
+    'prospectlists_atc_appointments_1_name' => 
     array (
     ),
     '$owner' => 

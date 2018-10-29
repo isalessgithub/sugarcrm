@@ -1,6 +1,6 @@
 <?php
- // created: 2018-09-28 10:15:34
-$dictionary['ISS2_BU_Results']['fields']['team_target_c']['labelValue']='Team Target (Total)';
+ // created: 2018-10-23 12:31:05
+$dictionary['ISS2_BU_Results']['fields']['team_target_c']['labelValue']='Team Target';
 $dictionary['ISS2_BU_Results']['fields']['team_target_c']['full_text_search']=array (
   'enabled' => '0',
   'boost' => '1',

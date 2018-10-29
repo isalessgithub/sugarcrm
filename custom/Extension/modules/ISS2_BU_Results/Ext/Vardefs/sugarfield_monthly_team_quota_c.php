@@ -1,5 +1,5 @@
 <?php
- // created: 2018-07-12 14:47:39
+ // created: 2018-10-23 12:29:47
 $dictionary['ISS2_BU_Results']['fields']['monthly_team_quota_c']['labelValue']='Monthly Team Quota';
 $dictionary['ISS2_BU_Results']['fields']['monthly_team_quota_c']['full_text_search']=array (
   'enabled' => '0',

@@ -26,6 +26,5 @@ $dictionary['ISS2_BU_Results'] = array(
 );
 
 if (!class_exists('VardefManager')){
-    require_once 'include/SugarObjects/VardefManager.php';
 }
 VardefManager::createVardef('ISS2_BU_Results','ISS2_BU_Results', array('basic','team_security','assignable','taggable'));

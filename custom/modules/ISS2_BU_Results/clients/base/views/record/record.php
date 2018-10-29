@@ -170,15 +170,17 @@ array (
             array (
               0 => 
               array (
-                'name' => 'atc_isscampaigns_iss2_bu_results_1_name',
+                'name' => 'iss2_bu_results_atc_isscampaigns_name',
+                'span' => 12,
               ),
               1 => 
               array (
+                'name' => 'team_assigned_c',
+                'label' => 'LBL_TEAM_ASSIGNED',
               ),
               2 => 
               array (
-                'name' => 'team_assigned_c',
-                'label' => 'LBL_TEAM_ASSIGNED',
+                'name' => 'iss2_bu_results_atc_isscampaigns_1_name',
               ),
               3 => 
               array (
@@ -187,16 +189,8 @@ array (
               ),
               4 => 
               array (
-              ),
-              5 => 
-              array (
                 'name' => 'monthly_team_quota_c',
                 'label' => 'LBL_MONTHLY_TEAM_QUOTA',
-              ),
-              6 => 
-              array (
-                'name' => 'description',
-                'span' => 12,
               ),
             ),
           ),
@@ -209,10 +203,20 @@ array (
             'labelsOnTop' => true,
             'placeholders' => true,
             'newTab' => false,
-            'panelDefault' => 'expanded',
+            'panelDefault' => 'collapsed',
             'fields' => 
             array (
               0 => 
+              array (
+                'name' => 'assigned_user_name',
+                'span' => 12,
+              ),
+              1 => 
+              array (
+                'name' => 'description',
+                'span' => 12,
+              ),
+              2 => 
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
@@ -236,7 +240,7 @@ array (
                   ),
                 ),
               ),
-              1 => 
+              3 => 
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,

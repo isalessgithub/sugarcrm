@@ -33,7 +33,7 @@ class CustomContactsLogic {
   function delete_contact_left_company($bean,$event,$arguments) {
     if ($bean->call_outcome_c == "Left company")
     {
-	$bean->deleted = 1;
+//	$bean->deleted = 1;
     }
   }
   function update_contactcount($bean, $event, $arguments){

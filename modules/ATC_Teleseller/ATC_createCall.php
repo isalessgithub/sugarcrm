@@ -2,8 +2,8 @@
 if (!defined('sugarEntry') || !sugarEntry) die ('Not a valid Entry Point');
 
 global $current_user;
-$GLOBALS['log']->fatal("printing post");
-$GLOBALS['log']->fatal(json_encode($_POST));
+//$GLOBALS['log']->fatal("printing post");
+//$GLOBALS['log']->fatal(json_encode($_POST));
 //$call = new Call();
 $call = BeanFactory::newBean('Calls');
 $module = $_POST['module'];
@@ -43,8 +43,10 @@ if ($module == 'Contacts') {
     if (isset($_REQUEST['description']) && !empty($_REQUEST['description'])) {
       if (isset($target_list)) {
         $Contacts->description .= "\n" . $target_list->name . " - " . $call->date_start . " * Call Made by " . $current_user->full_name . " * " . $call->description;
+	$Contacts->call_outcome_c = $_POST['call_outcome_c'];
       } else {
         $Contacts->description .= "\n" . $call->date_start . " * Call Made by " . $current_user->full_name . " * " . $call->description;
+	$Contacts->call_outcome_c = $_POST['call_outcome_c'];
       }
     }
     if (isset($_REQUEST['phone_other']) && $Contacts->phone_other != $_REQUEST['phone_other'])
@@ -136,10 +138,10 @@ if(!isset($_REQUEST['save_only_followup_call']) || empty($_REQUEST['save_only_fo
 	//$call->campaign_name_c = $tl->name;
 	$call->save();
 	$_SESSION['disable_workflow'] = "No";
-$GLOBALS['log']->fatal($call->id);
+//$GLOBALS['log']->fatal($call->id);
 	if ($module == "Contacts") {
 	  //set relationship between calls and contacts calls_contacts
-		$GLOBALS['log']->fatal("parent id".$parent_id);
+//		$GLOBALS['log']->fatal("parent id".$parent_id);
 	  $columns = array("call_id" => $call->id, "contact_id" => $parent_id);
 	  $values = array($call->id, $parent_id);
 	  $call->set_relationship('calls_contacts', $columns, true, false, $values);
